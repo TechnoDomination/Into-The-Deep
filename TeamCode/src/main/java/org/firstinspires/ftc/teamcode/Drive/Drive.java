@@ -15,7 +15,7 @@ public class Drive {
     public DcMotorEx FrontRightDCMotor;
     public DcMotorEx BackLeftDCMotor;
     public DcMotorEx BackRightDCMotor;
-    Drive(HardwareMap hardwareMap){
+    public Drive(HardwareMap hardwareMap){
 
         FrontLeftDCMotor = hardwareMap.get(DcMotorEx.class, "FrontLeftDCMotor");
         FrontRightDCMotor = hardwareMap.get(DcMotorEx.class, "FrontRightDCMotor");
