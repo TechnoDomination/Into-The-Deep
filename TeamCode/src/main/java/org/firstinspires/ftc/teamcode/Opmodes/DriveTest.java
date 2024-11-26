@@ -21,6 +21,7 @@ public class DriveTest extends LinearOpMode {
             telemetry.addData("Y pos", Localizer.pose.getY());
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
             drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            telemetry.update();
         }
     }
 }
