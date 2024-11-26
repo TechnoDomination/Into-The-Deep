@@ -24,25 +24,4 @@ public class ClawTest extends LinearOpMode {
         }
 
     }
-/*
-    @Override
-    public void init() {
-        Claw claw = new Claw(hardwareMap);
-    }
-
-    //hello
-    //this is prem hello
-    @Override
-    public void loop() {
-
-        while (opModeInInit() && !isStopRequested()) {
-            if (gamepad1.left_bumper) {
-                claw.state = Claw.State.IN;
-            }
-            if (gamepad1.right_bumper) {
-                claw.state = Claw.State.OUT;
-            }
-            claw.update();
-        }
-    } */
 }
