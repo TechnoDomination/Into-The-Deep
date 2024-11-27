@@ -3,13 +3,14 @@ package org.firstinspires.ftc.teamcode.Opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Drive.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+
 @TeleOp(name = "Drive Test",group = "Linear OpMode")
 public class DriveTest extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
 
         Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);

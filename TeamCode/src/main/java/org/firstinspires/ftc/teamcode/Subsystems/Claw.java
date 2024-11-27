@@ -37,7 +37,6 @@ public class Claw {
     }
 
     public String getTelemetryForArm(){
-
         String telemetry = "";
         telemetry = telemetry + "\n ClawServo1 Position = " + ClawServo1.getPosition();
         telemetry = telemetry + "\n ";

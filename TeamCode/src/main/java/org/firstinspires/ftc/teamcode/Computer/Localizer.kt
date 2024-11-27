@@ -11,6 +11,7 @@ import kotlin.math.PI
 class Localizer(hwmap: HardwareMap, private val offset: Poses) {
 
     private val odo: GoBildaPinpointDriver = hwmap.get(GoBildaPinpointDriver::class.java, "odo")
+
     init {
         odo.setOffsets(-6 * 25.4, 4 * 25.4)
 
@@ -24,6 +25,7 @@ class Localizer(hwmap: HardwareMap, private val offset: Poses) {
         increase when you move the robot forward. And the Y (strafe) pod should increase when
         you move the robot to the left.
          */
+
         odo.setEncoderDirections(
             GoBildaPinpointDriver.EncoderDirection.FORWARD,
             GoBildaPinpointDriver.EncoderDirection.FORWARD
@@ -48,22 +50,21 @@ class Localizer(hwmap: HardwareMap, private val offset: Poses) {
 
     data class Poses (val x: Double, val y: Double, val heading: Double)
 
-    object Angle {
-        fun wrap(theta: Double): Double {
-            var angle = theta
-            while (angle > PI) angle -= PI * 2
-            while (angle < -PI) angle += PI * 2
-            return angle
-        }
-        fun wrapToPositive(theta: Double): Double {
-            require(theta in -2 * PI..2 * PI)
-            var angle = theta
-            angle = wrap(angle)
-            while (angle> PI) angle -= PI
-            while (angle<0) angle += PI
-            return angle
-        }
+}
+
+object Angle {
+    fun wrap(theta: Double): Double {
+        var angle = theta
+        while (angle > PI) angle -= PI * 2
+        while (angle < -PI) angle += PI * 2
+        return angle
     }
-
-
+    fun wrapToPositive(theta: Double): Double {
+        require(theta in -2 * PI..2 * PI)
+        var angle = theta
+        angle = wrap(angle)
+        while (angle> PI) angle -= PI
+        while (angle<0) angle += PI
+        return angle
+    }
 }
