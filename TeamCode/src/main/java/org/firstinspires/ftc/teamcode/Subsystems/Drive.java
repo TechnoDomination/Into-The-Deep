@@ -18,9 +18,9 @@ public class Drive {
     public DcMotorEx BackLeftDCMotor;
     public DcMotorEx BackRightDCMotor;
 
-    public PIDController xPid = new PIDController(new PidParams(0.0,0.0,0.0));
-    public PIDController yPid = new PIDController(new PidParams(0.0,0.0,0.0));
-    public PIDController rPid = new PIDController(new PidParams(0.0,0.0,0.0));
+    public PIDController xPid = new PIDController(new PidParams(0.08,0.0001,0.01));
+    public PIDController yPid = new PIDController(new PidParams(0.08,0.0001,0.01));
+    public PIDController rPid = new PIDController(new PidParams(1.2,0.0001,0.08));
 
     public Drive(HardwareMap hardwareMap){
 

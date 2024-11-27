@@ -7,6 +7,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 
 @TeleOp(name="ArmTest", group="TestOpModes")
 public class ArmTest extends LinearOpMode {
+
+
+    //
     @Override
     public void runOpMode() throws InterruptedException {
         //initalization phase
@@ -20,6 +23,7 @@ public class ArmTest extends LinearOpMode {
                 telemetry.addData("Arm Position After Arm Moved = ", arm.getArmTelemetry());
                 telemetry.update();
             }
+
             arm.update();
         }
 
