@@ -13,7 +13,7 @@ public class Arm {
 
     public static double angle = 0.0;
     PIDFController controller = new PIDFController(new PIDFParams(0.0,0.0,0.0,0.0));
-    State state = State.IDLE;
+    public State state = State.IDLE;
 
     public enum State {
         VERTICAL(Math.toRadians(90)),
@@ -37,26 +37,15 @@ public class Arm {
         int encoder = ArmMotor.getCurrentPosition();
         angle = encoder * 2 *Math.PI / ticksPerRev;
 
-        double motorPower = controller.calculate(state.target - angle,angle);
-        ArmMotor.setPower(motorPower);
+        double motorPower = controller.calculate(state.target - angle, angle);
+        ArmMotor.setPower(0.5);
     }
-
-    /*public void moveArm(int target) {
-        PIDFController armController = new PIDFController(new PIDFParams(0.018, 0, 0.0009, 0.77));
-        angle = Math.toRadians(1425.1) + encoder * (2 * Math.PI / 1425.1);
-        double power = armController.calculate(state.target -angle , angle);
-        ArmMotor.setPower(Range.clip(power * .75,-0.5,0.5));
-
-
-    }*/
 
     public String getArmTelemetry(){
 
         String telemetry = "";
-        telemetry = telemetry + "\n pos - " + ArmMotor.getCurrentPosition();
+        telemetry = telemetry + "\n Current Position = " + ArmMotor.getCurrentPosition();
         telemetry = telemetry + "\n ";
         return telemetry;
     }
-
-
 }
