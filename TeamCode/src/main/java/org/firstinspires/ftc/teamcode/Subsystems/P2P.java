@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.PathPlanning;
+package org.firstinspires.ftc.teamcode.Subsystems;
 
 import androidx.annotation.NonNull;
 
@@ -51,7 +51,7 @@ public class P2P implements Action {
 
         //checking if it has reached the point
         return !(
-                Math.abs(latError) < 3.0 && Math.abs(axialError) < 3.0 && Math.abs(headingError) < Math.toRadians(10.0)
-                );
+                Math.abs(latError) < 2.0 && Math.abs(axialError) < 2.0 && Math.abs(headingError) < Math.toRadians(5.0)
+        );
     }
 }

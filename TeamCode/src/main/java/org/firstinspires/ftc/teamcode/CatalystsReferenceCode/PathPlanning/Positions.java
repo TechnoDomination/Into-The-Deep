@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.PathPlanning;
+package org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PathPlanning;
 
 import static java.lang.Math.PI;
 
@@ -53,8 +53,8 @@ public enum Positions {
     RedBrickMiddleRight(new Vector2d( 58,-40), PI *.25),
     CornerOfRedZone(new Vector2d( 36,-70), -PI * 0),
 
-    Test(new Vector2d(0.0,15.0),0.0),
-    Test2(new Vector2d(5.0,0.0),0.0);
+    Test(new Vector2d(3.0,20.0),PI/2),
+    Test2(new Vector2d(0.0,0.0),0.0);
 
 //    Test(new Vector2d(0, 30), PI/2),
 //    Test2(new Vector2d(-10, 20), -PI/2),

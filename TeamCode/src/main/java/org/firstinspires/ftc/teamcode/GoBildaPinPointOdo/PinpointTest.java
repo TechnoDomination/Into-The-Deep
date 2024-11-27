@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.Computer;
+package org.firstinspires.ftc.teamcode.GoBildaPinPointOdo;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -15,7 +14,7 @@ import java.util.Locale;
 
 public class PinpointTest extends LinearOpMode {
 
-    org.firstinspires.ftc.teamcode.Computer.GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
+    org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
     double oldTime = 0;
 
     @Override
@@ -26,7 +25,7 @@ public class PinpointTest extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
 
-        odo = hardwareMap.get(org.firstinspires.ftc.teamcode.Computer.GoBildaPinpointDriver.class,"odo");
+        odo = hardwareMap.get(org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.GoBildaPinpointDriver.class,"odo");
 
         /*
         Set the odometry pod positions relative to the point that the odometry computer tracks around.
@@ -53,7 +52,7 @@ public class PinpointTest extends LinearOpMode {
         increase when you move the robot forward. And the Y (strafe) pod should increase when
         you move the robot to the left.
          */
-        odo.setEncoderDirections(org.firstinspires.ftc.teamcode.Computer.GoBildaPinpointDriver.EncoderDirection.FORWARD, org.firstinspires.ftc.teamcode.Computer.GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        odo.setEncoderDirections(org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.GoBildaPinpointDriver.EncoderDirection.FORWARD, org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
 
         /*

@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.PID.PIDController;
-import org.firstinspires.ftc.teamcode.PID.PidParams;
+import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PIDController;
+import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,6 +65,12 @@ public class Drive {
         FrontRightDCMotor.setPower(frontRightPower);
         BackLeftDCMotor.setPower(backLeftPower);
         BackRightDCMotor.setPower(backRightPower);
+    }
+    public void stopDrive() {
+        FrontLeftDCMotor.setPower(0);
+        FrontRightDCMotor.setPower(0);
+        BackLeftDCMotor.setPower(0);
+        BackRightDCMotor.setPower(0);
     }
 
 
