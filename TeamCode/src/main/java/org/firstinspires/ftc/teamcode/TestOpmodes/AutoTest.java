@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CatalystsReferenceCode.Autonomous;
+package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -8,16 +8,19 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PathPlanning.Positions;
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
 
+
+import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.FieldPositions;
 import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
+import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
-@Config
-@TeleOp
-public class PidAuto extends LinearOpMode {
+
+@TeleOp (name = "Auto Test", group = "Test OpModes")
+public class AutoTest extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -30,6 +33,8 @@ public class PidAuto extends LinearOpMode {
         Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        Slides slides = new Slides(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
 
         waitForStart();
 
@@ -41,20 +46,26 @@ public class PidAuto extends LinearOpMode {
                             drive.yPid.setPIDF(new PIDFParams(p2,i2,d2));
                             drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
                             claw.update();
+                            arm.update();
+                            slides.update();
                             return true;
                         },
                         new SequentialAction(
-                                Positions.Test.runToExact,
-                                Positions.Test2.runToExact,
-                                Positions.Test.runToExact,
-                                Positions.Test2.runToExact,
-                                Positions.Test.runToExact,
+                                FieldPositions.Test.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
                                 },
                                 Action -> {
-                                    claw.state = claw.state.IN;
+                                    claw.state = Claw.State.IN;
+                                    return false;
+                                },
+                                Action -> {
+                                    arm.state = Arm.State.VERTICAL;
+                                    return false;
+                                },
+                                Action -> {
+                                    slides.state = Slides.State.LOWBASKETSAMPLEDROP;
                                     return false;
                                 }
                         )

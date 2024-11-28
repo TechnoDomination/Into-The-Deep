@@ -8,15 +8,15 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PathPlanning.Positions;
+
 import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.FieldPositions;
+import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
 
 @Config
-@TeleOp
-public class DriveAutoTuning extends LinearOpMode {
+@TeleOp (name = "Drive Tuning", group = "Tuning OpModes")
+public class DriveTuning extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -28,7 +28,7 @@ public class DriveAutoTuning extends LinearOpMode {
 
         Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);
-        Claw claw = new Claw(hardwareMap);
+
 
         waitForStart();
 
@@ -36,24 +36,20 @@ public class DriveAutoTuning extends LinearOpMode {
                 new ParallelAction(
                         telemetryPacket -> {
                             localizer.update();
-                            drive.xPid.setPID(new PidParams(p,i,d));
-                            drive.yPid.setPID(new PidParams(p2,i2,d2));
-                            drive.rPid.setPID(new PidParams(p3,i3,d3));
-                            claw.update();
+                            drive.xPid.setPIDF(new PIDFParams(p,i,d));
+                            drive.yPid.setPIDF(new PIDFParams(p2,i2,d2));
+                            drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
+
                             return true;
                         },
                         new SequentialAction(
-                                Positions.Test.runToExact,
-                                Positions.Test2.runToExact,
-                                Positions.Test.runToExact,
-                                Positions.Test2.runToExact,
-                                Positions.Test.runToExact,
+                                FieldPositions.Test.runToExact,
+                                FieldPositions.Test2.runToExact,
+                                FieldPositions.Test.runToExact,
+                                FieldPositions.Test2.runToExact,
+                                FieldPositions.Test.runToExact,
                                 Action -> {
                                     drive.stopDrive();
-                                    return false;
-                                },
-                                Action -> {
-                                    claw.state = claw.state.IN;
                                     return false;
                                 }
                         )

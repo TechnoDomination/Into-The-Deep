@@ -4,8 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PIDController;
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +17,9 @@ public class Drive {
     public DcMotorEx BackLeftDCMotor;
     public DcMotorEx BackRightDCMotor;
 
-    public PIDController xPid = new PIDController(new PidParams(0.08,0.0001,0.01));
-    public PIDController yPid = new PIDController(new PidParams(0.08,0.0001,0.01));
-    public PIDController rPid = new PIDController(new PidParams(1.2,0.0001,0.08));
+    public PIDFController xPid = new PIDFController(new PIDFParams(0.08,0.0001,0.01));
+    public PIDFController yPid = new PIDFController(new PIDFParams(0.08,0.0001,0.01));
+    public PIDFController rPid = new PIDFController(new PIDFParams(1.2,0.0001,0.08));
 
     public Drive(HardwareMap hardwareMap){
 

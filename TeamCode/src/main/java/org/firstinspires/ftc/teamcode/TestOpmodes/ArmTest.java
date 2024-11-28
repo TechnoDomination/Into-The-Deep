@@ -7,28 +7,38 @@ import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
 
-@Config
+
 @TeleOp(name="ArmTest", group="TestOpModes")
 public class ArmTest extends LinearOpMode {
 
-    public static double p = 0.0, i = 0.0, d = 0.0;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Localizer armLocalizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
+
         Arm arm = new Arm(hardwareMap);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
+            arm.update();
+
             if (gamepad2.y) {
-                telemetry.addData("Arm Position After Button Pressed = ", arm.getArmTelemetry());
-                arm.ArmMotor.setPower(0.5);
-                telemetry.addData("Arm Position After Arm Moved = ", arm.getArmTelemetry());
-                telemetry.update();
+                arm.state = Arm.State.VERTICAL;
+            } else if (gamepad2.a) {
+                arm.state = Arm.State.SAMPLEPICKING;
+            } else if (gamepad2.x) {
+                arm.state = Arm.State.SPECIMENPICKING;
+            } else if (gamepad2.b) {
+                arm.state = Arm.State.SAMPLEDEPOSITREADY;
+            }else if (gamepad2.b && gamepad2.y) {
+                arm.state = Arm.State.SAMPLEDEPOSIT;
             }
 
-            arm.update();
+            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
+            telemetry.update();
+
         }
 
     }

@@ -11,21 +11,26 @@ import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
 public class Slides {
     public DcMotorEx SlideMotor1;
     public DcMotorEx SlideMotor2;
-    public static double angle = 0.0;
     public Slides.State state = Slides.State.IDLE;
 
-    PIDFController controller = new PIDFController(new PIDFParams(0.0,0.0,0.0,0.0));
+    public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0,0.0));
 
     public enum State {
-        SAMPLEDROP(Math.toRadians(90)),
-        IDLE(0.0);
+        HIGHBASKETSAMPLEDROP(2000),
+        LOWBASKETSAMPLEDROP(1000),
+        SPECIMENALIGN(500),
+        FULLDOWN(0),
+        IDLE(0);
         public final double target;
         State(double Target) {
-            this.target = Math.toRadians(Target);
+            this.target = Target;
         }
     }
 
     public Slides(HardwareMap hardwareMap){
+
+        SlideMotor1 = hardwareMap.get(DcMotorEx.class, "SlideMotor1");
+        SlideMotor2 = hardwareMap.get(DcMotorEx.class, "SlideMotor2");
         SlideMotor2.setDirection(DcMotor.Direction.REVERSE);
         SlideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         SlideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -39,10 +44,10 @@ public class Slides {
 
     public void update() {
         int encoder = SlideMotor1.getCurrentPosition();
-        angle = encoder * 2 *Math.PI / ticksPerRev;
 
-        double motorPower = controller.calculate(state.target - angle, angle);
-        SlideMotor1.setPower(0.5);
+        double motorPower = controller.calculate(state.target - encoder);
+        SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
+        SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
     }
 
     public String getSlidesTelemetry(){

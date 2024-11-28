@@ -12,11 +12,16 @@ public class Arm {
     public DcMotorEx ArmMotor;
 
     public static double angle = 0.0;
-    PIDFController controller = new PIDFController(new PIDFParams(0.0,0.0,0.0,0.0));
+    public PIDFController controller = new PIDFController(new PIDFParams(0.855,0.0005,0.0175,0.0));
     public State state = State.IDLE;
 
+
     public enum State {
-        VERTICAL(Math.toRadians(90)),
+        VERTICAL(90),
+        SAMPLEPICKING(180),
+        SPECIMENPICKING(170),
+        SAMPLEDEPOSITREADY(75),
+        SAMPLEDEPOSIT(105),
         IDLE(0.0);
         public final double target;
         State(double Target) {
@@ -38,13 +43,17 @@ public class Arm {
         angle = encoder * 2 *Math.PI / ticksPerRev;
 
         double motorPower = controller.calculate(state.target - angle, angle);
-        ArmMotor.setPower(0.5);
+        ArmMotor.setPower(Range.clip(motorPower * .75,-0.75,0.75));
     }
 
     public String getArmTelemetry(){
 
         String telemetry = "";
         telemetry = telemetry + "\n Current Position = " + ArmMotor.getCurrentPosition();
+        telemetry = telemetry + "\n State current = " + state;
+        telemetry = telemetry + "\n State target in radians = " + state.target;
+        telemetry = telemetry + "\n Angle from encoder = " + angle;
+        telemetry = telemetry + "\n Motor power = " + controller.calculate(state.target - angle, angle);
         telemetry = telemetry + "\n ";
         return telemetry;
     }

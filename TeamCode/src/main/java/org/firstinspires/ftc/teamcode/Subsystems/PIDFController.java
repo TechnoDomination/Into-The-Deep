@@ -15,8 +15,8 @@ public class PIDFController {
         this.params = params;
     }
 
-    public void setPIDF(PIDFParams PIDFparams) {
-        params = PIDFparams;
+    public void setPIDF(PIDFParams pidfparams) {
+        params = pidfparams;
     }
 
     public double calculate(double error, double armAngle) {
