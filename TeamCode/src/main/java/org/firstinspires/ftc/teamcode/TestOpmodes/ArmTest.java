@@ -15,7 +15,9 @@ public class ArmTest extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
 
         waitForStart();
+
         while (opModeIsActive() && !isStopRequested()) {
+
             arm.update();
 
             if (gamepad2.y) {

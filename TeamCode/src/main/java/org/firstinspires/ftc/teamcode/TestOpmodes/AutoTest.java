@@ -4,7 +4,9 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
 
-@TeleOp (name = "Auto Test", group = "Test OpModes")
+@Autonomous(name = "Auto Test", group = "Test OpModes")
 public class AutoTest extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
@@ -53,20 +55,31 @@ public class AutoTest extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
+                                customActions.closeClaw,
                                 FieldPositions.Test.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
                                 },
-                                customActions.closeClaw,
-                                Action -> {
+                                /*Action -> {
+                                    claw.state = Claw.State.IN;
+                                    return false;
+                                }*/
+                                customActions.armVertical,
+                                new SleepAction(.25),
+                                customActions.openClaw,
+                                new SleepAction(.25),
+                                customActions.armSamplePicking
+                                //customActions.closeClaw,
+                                //customActions.armVertical
+                                /*Action -> {
                                     arm.state = Arm.State.VERTICAL;
                                     return false;
                                 },
                                 Action -> {
                                     slides.state = Slides.State.LOWBASKETSAMPLEDROP;
                                     return false;
-                                }
+                                }*/
                         )
                 )
         );

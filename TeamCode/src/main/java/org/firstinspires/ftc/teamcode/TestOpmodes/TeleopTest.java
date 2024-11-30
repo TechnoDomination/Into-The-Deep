@@ -25,7 +25,7 @@ public class TeleopTest extends LinearOpMode {
         while(opModeIsActive() && !isStopRequested()){
             localizer.update();
             slides.update();
-            //claw.update();
+            claw.update();
             arm.update();
 
             telemetry.addData("X pos", Localizer.pose.getX());
@@ -36,14 +36,14 @@ public class TeleopTest extends LinearOpMode {
             //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             //Claw Controls
-            /*if (gamepad2.left_bumper) {
+            if (gamepad2.left_bumper) {
                 claw.state = Claw.State.IN;
             }
             if (gamepad2.right_bumper) {
                 claw.state = Claw.State.OUT;
             }
             telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
-*/
+
             //Slides Controls
             if (gamepad1.y) {
                 slides.state = Slides.State.HIGHBASKETSAMPLEDROP;

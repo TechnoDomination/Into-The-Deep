@@ -15,6 +15,9 @@ public class Arm {
     public PIDFController controller = new PIDFController(new PIDFParams(0.855,0.0005,0.0175,0.0));
     public State state = State.IDLE;
 
+    public boolean isTargetReached = false;
+    public static Arm instance;
+
 
     public enum State {
         SAMPLEPICKING(180),
@@ -34,6 +37,9 @@ public class Arm {
         ArmMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        instance = this;
+
     }
 
     double ticksPerRev = 1425.1;
@@ -44,6 +50,13 @@ public class Arm {
 
         double motorPower = controller.calculate(state.target - angle, angle);
         ArmMotor.setPower(Range.clip(motorPower * .75,-0.75,0.75));
+
+        if (state.target - angle < Math.toRadians(5.0)){
+            isTargetReached = true;
+        } else {
+            isTargetReached = false;
+        }
+
     }
 
     public String getArmTelemetry(){
