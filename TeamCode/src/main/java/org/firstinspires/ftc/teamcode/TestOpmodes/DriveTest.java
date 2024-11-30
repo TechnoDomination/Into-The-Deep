@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 
-@TeleOp(name = "Drive Test",group = "Linear OpMode")
+@TeleOp(name = "DriveTest",group = "TestOpModes")
 public class DriveTest extends LinearOpMode {
 
     @Override

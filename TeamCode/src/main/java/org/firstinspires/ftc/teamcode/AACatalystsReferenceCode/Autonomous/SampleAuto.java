@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.CatalystsReferenceCode.Autonomous;
+package org.firstinspires.ftc.teamcode.AACatalystsReferenceCode.Autonomous;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 
 public class SampleAuto extends LinearOpMode {

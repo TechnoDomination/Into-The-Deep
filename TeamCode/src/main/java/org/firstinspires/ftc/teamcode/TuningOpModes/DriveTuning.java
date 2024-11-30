@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Subsystems.FieldPositions;
-import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
+import org.firstinspires.ftc.teamcode.Util.FieldPositions;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
 @Config
 @TeleOp (name = "Drive Tuning", group = "Tuning OpModes")

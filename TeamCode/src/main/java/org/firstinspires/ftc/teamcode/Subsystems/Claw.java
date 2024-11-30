@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Claw {
     private final Servo ClawServo1;
     public State state = State.OUT;
+    public boolean isTargetReached = false;
 
     public enum State {
         IN, OUT, STOP
@@ -30,13 +31,19 @@ public class Claw {
                 ClawServo1.setPosition(0);
                 break;
         }
+
+        if (state == State.IN && ClawServo1.getPosition() == 1){
+            isTargetReached = true;
+        } else if (state == State.OUT && ClawServo1.getPosition() == 0) {
+            isTargetReached = true;
+        } else {
+            isTargetReached = false;
+        }
+
     }
 
-    public double getPosition(Servo servo){
-        return servo.getPosition();
-    }
 
-    public String getTelemetryForArm(){
+    public String getClawTelemetry(){
         String telemetry = "";
         telemetry = telemetry + "\n ClawServo1 Position = " + ClawServo1.getPosition();
         telemetry = telemetry + "\n ";

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
+
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -10,13 +10,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Subsystems.FieldPositions;
-import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
+import org.firstinspires.ftc.teamcode.Util.FieldPositions;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
+import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
 
 @TeleOp (name = "Auto Test", group = "Test OpModes")
@@ -35,6 +36,7 @@ public class AutoTest extends LinearOpMode {
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
+        CustomActions customActions = new CustomActions(hardwareMap);
 
         waitForStart();
 
@@ -56,10 +58,7 @@ public class AutoTest extends LinearOpMode {
                                     drive.stopDrive();
                                     return false;
                                 },
-                                Action -> {
-                                    claw.state = Claw.State.IN;
-                                    return false;
-                                },
+                                customActions.closeClaw,
                                 Action -> {
                                     arm.state = Arm.State.VERTICAL;
                                     return false;

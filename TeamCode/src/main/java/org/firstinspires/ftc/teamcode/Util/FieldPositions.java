@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Util;
 
 import static java.lang.Math.PI;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.Subsystems.P2P;
+import org.firstinspires.ftc.teamcode.Actions.P2P;
 
 
 public enum FieldPositions {
@@ -65,7 +65,7 @@ public enum FieldPositions {
 //    Test5(new Vector2d(-2, 45), PI);
 
     FieldPositions(Vector2d vector, Double rotation) {
-        runToExact = new org.firstinspires.ftc.teamcode.Subsystems.P2P(vector, rotation);
+        runToExact = new P2P(vector, rotation);
     }
 
     public final P2P runToExact;

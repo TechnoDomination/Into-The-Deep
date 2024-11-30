@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
+import org.firstinspires.ftc.teamcode.Util.PIDFController;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
 public class Arm {
     public DcMotorEx ArmMotor;
@@ -17,11 +17,11 @@ public class Arm {
 
 
     public enum State {
-        VERTICAL(90),
         SAMPLEPICKING(180),
-        SPECIMENPICKING(170),
-        SAMPLEDEPOSITREADY(75),
+        SPECIMENPICKING(160),
+        SUBMERSIBLE(125),
         SAMPLEDEPOSIT(105),
+        VERTICAL(80),
         IDLE(0.0);
         public final double target;
         State(double Target) {
@@ -40,7 +40,7 @@ public class Arm {
 
     public void update() {
         int encoder = ArmMotor.getCurrentPosition();
-        angle = encoder * 2 *Math.PI / ticksPerRev;
+        angle = encoder * 2 * Math.PI / ticksPerRev;
 
         double motorPower = controller.calculate(state.target - angle, angle);
         ArmMotor.setPower(Range.clip(motorPower * .75,-0.75,0.75));

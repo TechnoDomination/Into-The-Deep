@@ -20,6 +20,9 @@ public class ClawTest extends LinearOpMode {
                 claw.state = Claw.State.OUT;
             }
             claw.update();
+
+            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
+            telemetry.update();
         }
 
     }

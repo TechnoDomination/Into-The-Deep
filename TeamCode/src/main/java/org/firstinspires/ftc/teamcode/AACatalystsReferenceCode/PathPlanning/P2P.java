@@ -1,17 +1,14 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.AACatalystsReferenceCode.PathPlanning;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Rotation2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Angle;
-import org.firstinspires.ftc.teamcode.GoBuildaComputer.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Angle;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-
-import java.util.ArrayList;
 
 //RR - Actions
 public class P2P implements Action {
@@ -52,6 +49,6 @@ public class P2P implements Action {
         //checking if it has reached the point
         return !(
                 Math.abs(latError) < 2.0 && Math.abs(axialError) < 2.0 && Math.abs(headingError) < Math.toRadians(5.0)
-        );
+                );
     }
 }

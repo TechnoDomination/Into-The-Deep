@@ -9,10 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-import org.firstinspires.ftc.teamcode.Subsystems.PIDFController;
-import org.firstinspires.ftc.teamcode.Subsystems.PIDFParams;
+
+import org.firstinspires.ftc.teamcode.Util.PIDFController;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
 @Config
 @TeleOp(name = "Arm Tuning", group = "Tuning OpModes")

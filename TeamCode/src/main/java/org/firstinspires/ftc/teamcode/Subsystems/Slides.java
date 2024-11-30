@@ -3,22 +3,26 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.CatalystsReferenceCode.PID.PidParams;
+import org.firstinspires.ftc.teamcode.Util.PIDFController;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
+
 
 public class Slides {
     public DcMotorEx SlideMotor1;
     public DcMotorEx SlideMotor2;
     public Slides.State state = Slides.State.IDLE;
+    public TouchSensor limitSwitch;
 
     public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0,0.0));
 
     public enum State {
-        HIGHBASKETSAMPLEDROP(2000),
+        HIGHBASKETSAMPLEDROP(2100),
         LOWBASKETSAMPLEDROP(1000),
-        SPECIMENALIGN(500),
+        SPECIMENALIGN(710),
+        SPECIMENPULL(800),
         FULLDOWN(0),
         IDLE(0);
         public final double target;
