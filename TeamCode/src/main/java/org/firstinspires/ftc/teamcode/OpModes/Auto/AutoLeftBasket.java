@@ -19,6 +19,8 @@ import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
+import java.text.FieldPosition;
+
 
 @Autonomous(name = "Auto Left Basket", group = "Test OpModes")
 public class AutoLeftBasket extends LinearOpMode {
@@ -26,6 +28,7 @@ public class AutoLeftBasket extends LinearOpMode {
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
     public static double p3 = 1.1,i3 = 0.0,d3 = 0.0;
+
 
     @Override
     public void runOpMode() {
@@ -54,7 +57,7 @@ public class AutoLeftBasket extends LinearOpMode {
                         },
                         new SequentialAction(
                                 customActions.closeClaw,
-                                FieldPositions.Test.runToExact,
+                                FieldPositions.Bluebasket.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

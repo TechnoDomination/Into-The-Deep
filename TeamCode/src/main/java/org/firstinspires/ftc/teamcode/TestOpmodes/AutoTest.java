@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-
+import org.firstinspires.ftc.teamcode.AACatalystsReferenceCode.PathPlanning.Positions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
@@ -39,6 +39,7 @@ public class AutoTest extends LinearOpMode {
         CustomActions customActions = new CustomActions(hardwareMap);
 
         waitForStart();
+
         Actions.runBlocking(
                 new ParallelAction(
                         telemetryPacket -> {
@@ -49,6 +50,11 @@ public class AutoTest extends LinearOpMode {
                             claw.update();
                             arm.update();
                             slides.update();
+                            telemetry.addData("X pos", Localizer.pose.getX());
+                            telemetry.addData("Y pos", Localizer.pose.getY());
+                            telemetry.addData("Heading pos", Localizer.pose.getHeading());
+                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
+                            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
                             telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
                             telemetry.update();
                             return true;

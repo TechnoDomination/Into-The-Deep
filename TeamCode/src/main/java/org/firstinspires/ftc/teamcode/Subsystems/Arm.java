@@ -23,8 +23,8 @@ public class Arm {
         SAMPLEPICKING(180),
         SPECIMENPICKING(160),
         SUBMERSIBLE(125),
-        SAMPLEDEPOSIT(105),
-        VERTICAL(80),
+        SAMPLEDEPOSIT(115),
+        VERTICAL(85),
         IDLE(0.0);
         public final double target;
         State(double Target) {
