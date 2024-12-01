@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes;
+package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-
-
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
@@ -22,8 +20,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
 
-@Autonomous(name = "Auto Test", group = "Test OpModes")
-public class AutoTest extends LinearOpMode {
+@Autonomous(name = "Auto Left Basket", group = "Test OpModes")
+public class AutoLeftBasket extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -31,7 +29,9 @@ public class AutoTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
+        telemetry = FtcDashboard.getInstance().getTelemetry();
+
+        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(35.0,63.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
@@ -39,6 +39,7 @@ public class AutoTest extends LinearOpMode {
         CustomActions customActions = new CustomActions(hardwareMap);
 
         waitForStart();
+
         Actions.runBlocking(
                 new ParallelAction(
                         telemetryPacket -> {
@@ -49,8 +50,6 @@ public class AutoTest extends LinearOpMode {
                             claw.update();
                             arm.update();
                             slides.update();
-                            telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
-                            telemetry.update();
                             return true;
                         },
                         new SequentialAction(
@@ -59,17 +58,13 @@ public class AutoTest extends LinearOpMode {
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
-                                },
+                                }
                                 /*Action -> {
                                     claw.state = Claw.State.IN;
                                     return false;
                                 }*/
-                                customActions.prepareHighBasket,
-                                new SleepAction(0.5),
-                                customActions.dropSample,
-                                new SleepAction(0.5),
-                                customActions.slidesFullDown
-
+                                //customActions.prepareHighBasket,
+                                //customActions.openClaw
                         )
 
                 )

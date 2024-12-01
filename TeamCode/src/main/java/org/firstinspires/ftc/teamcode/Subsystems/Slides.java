@@ -18,6 +18,9 @@ public class Slides {
 
     public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0,0.0));
 
+    public boolean isTargetReached = false;
+    public static Slides instance;
+
     public enum State {
         HIGHBASKETSAMPLEDROP(2100),
         LOWBASKETSAMPLEDROP(1000),
@@ -43,6 +46,9 @@ public class Slides {
         SlideMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SlideMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         SlideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        instance = this;
+
     }
     double ticksPerRev = 384.5;
 
@@ -52,6 +58,13 @@ public class Slides {
         double motorPower = controller.calculate(state.target - encoder);
         SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
         SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
+
+        if (Math.abs(2100-encoder) < 50) {
+            isTargetReached = true;
+        } else {
+            isTargetReached = false;
+        }
+
     }
 
     public String getSlidesTelemetry(){
