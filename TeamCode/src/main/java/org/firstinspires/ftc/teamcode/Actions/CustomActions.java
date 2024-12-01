@@ -110,7 +110,7 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            arm.state = Arm.State.VERTICAL;
+            arm.state = Arm.State.SAMPLEPREPARATION;
             slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
 
             if (slides.isTargetReached) {
@@ -125,13 +125,20 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            boolean stepDone = false;
+
             if (slides.isTargetReached){
                 arm.state = Arm.State.SAMPLEDEPOSIT;
-                claw.state = Claw.State.OUT;
+                if (arm.isTargetReached){
+                    claw.state = Claw.State.OUT;
+                    if (claw.isTargetReached) {
+                        arm.state = Arm.State.SAMPLEPREPARATION;
+                        stepDone = true;
+                    }
+                }
             }
 
-            if (claw.isTargetReached) {
-                arm.state = Arm.State.VERTICAL;
+            if (stepDone) {
                 return false;
             } else {
                 return true;

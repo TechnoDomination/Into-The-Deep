@@ -21,15 +21,15 @@ public enum FieldPositions {
     // Red side Bricks
     YellowLeftbrick1(new Vector2d(-68, -25.5), 0.0),
     YellowLeftbrick2(new Vector2d(-58, -25.5), 0.0),
-    YellowLeftbrick3(new Vector2d(-48, -25.5), 0.0),
+    YellowLeftbrick3(new Vector2d(-48, -35.5), 0.0),
 
     RedRightbrick1(new Vector2d(48, -25.5), 0.0),
     RedRightbrick2(new Vector2d(58, -25.5), 0.0),
     RedRightbrick3(new Vector2d(68, -25.5), 0.0),
 
     // point scoring spots
-    Bluebasket(new Vector2d(48, 25),-PI/2),
-    Redbasket(new Vector2d(-53, -53), 0.0),
+    Bluebasket(new Vector2d(-53, -48),-PI*0.6),
+    Redbasket(new Vector2d(-35, -53), 0.0),
 
 //    BlueHumanIntake(new Vector2d(-57, 58), 0.0),
     RedHumanIntake(new Vector2d(57, -58), 0.0),
@@ -57,6 +57,7 @@ public enum FieldPositions {
 
     Test(new Vector2d(0.0,15.0),0.0),
     Test2(new Vector2d(0.0,0.0),0.0);
+
 
 //    Test(new Vector2d(0, 30), PI/2),
 //    Test2(new Vector2d(-10, 20), -PI/2),

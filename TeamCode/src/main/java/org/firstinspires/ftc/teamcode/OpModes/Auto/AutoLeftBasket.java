@@ -34,7 +34,7 @@ public class AutoLeftBasket extends LinearOpMode {
     public void runOpMode() {
         telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(35.0,63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(-35.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
@@ -53,19 +53,47 @@ public class AutoLeftBasket extends LinearOpMode {
                             claw.update();
                             arm.update();
                             slides.update();
+
+                            telemetry.addData("X pos", Localizer.pose.getX());
+                            telemetry.addData("Y pos", Localizer.pose.getY());
+                            telemetry.addData("Heading pos", Localizer.pose.getHeading());
+                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
+                            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
+                            telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+                            telemetry.update();
+
                             return true;
                         },
                         new SequentialAction(
                                 customActions.closeClaw,
+                                new SleepAction(1),
+                                FieldPositions.Redbasket.runToExact,
+                                Action -> {
+                                    drive.stopDrive();
+                                    return false;
+                                },
+                                new SleepAction(1),
                                 FieldPositions.Bluebasket.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
-                                }
-                                /*Action -> {
-                                    claw.state = Claw.State.IN;
+                                },
+                                new SleepAction(1),
+                                customActions.prepareHighBasket,
+                                new SleepAction(1),
+                                customActions.dropSample,
+                                new SleepAction(1),
+                                customActions.slidesFullDown,
+                                new SleepAction(1),
+                                FieldPositions.YellowLeftbrick3.runToExact,
+                                Action -> {
+                                    drive.stopDrive();
                                     return false;
-                                }*/
+                                },
+                                Action -> {
+                                    arm.state = Arm.State.REST;
+                                    return false;
+                                }
                                 //customActions.prepareHighBasket,
                                 //customActions.openClaw
                         )

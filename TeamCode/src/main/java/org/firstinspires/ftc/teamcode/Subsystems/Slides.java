@@ -22,7 +22,7 @@ public class Slides {
     public static Slides instance;
 
     public enum State {
-        HIGHBASKETSAMPLEDROP(2100),
+        HIGHBASKETSAMPLEDROP(2200),
         LOWBASKETSAMPLEDROP(1000),
         SPECIMENALIGN(710),
         SPECIMENPULL(800),
@@ -59,7 +59,7 @@ public class Slides {
         SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
         SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
 
-        if (Math.abs(2100-encoder) < 50) {
+        if (Math.abs(2200-encoder) < 50) {
             isTargetReached = true;
         } else {
             isTargetReached = false;
