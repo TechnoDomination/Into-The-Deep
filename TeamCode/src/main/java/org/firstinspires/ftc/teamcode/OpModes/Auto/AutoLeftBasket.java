@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
@@ -34,12 +35,11 @@ public class AutoLeftBasket extends LinearOpMode {
     public void runOpMode() {
         telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(-35.0,-63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(-35.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
-        Claw claw = new Claw(hardwareMap);
-        Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);
+        customActions.update();
 
         waitForStart();
 
@@ -47,26 +47,18 @@ public class AutoLeftBasket extends LinearOpMode {
                 new ParallelAction(
                         telemetryPacket -> {
                             localizer.update();
-                            drive.xPid.setPIDF(new PIDFParams(p,i,d));
-                            drive.yPid.setPIDF(new PIDFParams(p2,i2,d2));
-                            drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
-                            claw.update();
-                            arm.update();
-                            slides.update();
+                            customActions.update();
 
                             telemetry.addData("X pos", Localizer.pose.getX());
                             telemetry.addData("Y pos", Localizer.pose.getY());
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
-                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
-                            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
-                            telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+                            for(String string: customActions.getTelemetry()) telemetry.addLine(string);
                             telemetry.update();
 
                             return true;
                         },
+
                         new SequentialAction(
-                                customActions.closeClaw,
-                                new SleepAction(1),
                                 Positions.GoFront.runToExact,
                                 Action -> {
                                     drive.stopDrive();

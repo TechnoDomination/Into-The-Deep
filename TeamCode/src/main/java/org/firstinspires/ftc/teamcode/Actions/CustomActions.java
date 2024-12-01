@@ -11,15 +11,29 @@ import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CustomActions {
     public Claw claw;
     public Arm arm;
     public Slides slides;
 
     public CustomActions(HardwareMap hardwareMap){
-         claw = Claw.instance;
-         arm = Arm.instance;
-         slides = Slides.instance;
+         claw = new Claw(hardwareMap);
+         arm = new Arm(hardwareMap);
+         slides = new Slides(hardwareMap);
+    }
+
+    public void update(){
+        claw.update();
+        arm.update();
+        slides.update();
+    }
+
+    public List<String> getTelemetry(){
+        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry());
     }
 
     public Action closeClaw = new Action() {
@@ -28,11 +42,7 @@ public class CustomActions {
 
             claw.state = Claw.State.IN;
 
-            if (claw.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !claw.isTargetReached;
         }
     };
 
@@ -42,11 +52,7 @@ public class CustomActions {
 
             claw.state = Claw.State.OUT;
 
-            if (claw.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !claw.isTargetReached;
         }
     };
 
@@ -56,11 +62,7 @@ public class CustomActions {
 
             arm.state = Arm.State.VERTICAL;
 
-            if (arm.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !arm.isTargetReached;
         }
     };
 
@@ -70,11 +72,7 @@ public class CustomActions {
 
             arm.state = Arm.State.SAMPLEPICKING;
 
-            if (arm.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !arm.isTargetReached;
         }
     };
 
@@ -84,11 +82,7 @@ public class CustomActions {
 
             slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
 
-            if (slides.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !slides.isTargetReached;
         }
     };
 
@@ -98,11 +92,7 @@ public class CustomActions {
 
             slides.state = Slides.State.FULLDOWN;
 
-            if (slides.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !slides.isTargetReached;
         }
     };
 
@@ -113,11 +103,7 @@ public class CustomActions {
             arm.state = Arm.State.SAMPLEPREPARATION;
             slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
 
-            if (slides.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !slides.isTargetReached;
         }
     };
 
@@ -138,14 +124,11 @@ public class CustomActions {
                 }
             }
 
-            if (stepDone) {
-                return false;
-            } else {
-                return true;
-            }
+            return !stepDone;
         }
     };
 
+    //todo make custom action that stops drive
     public Action prepareHighRung = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {

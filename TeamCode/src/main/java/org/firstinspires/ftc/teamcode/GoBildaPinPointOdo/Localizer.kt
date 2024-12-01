@@ -48,10 +48,10 @@ class Localizer(hwmap: HardwareMap, private val offset: Poses) {
         lateinit var pose: Poses
     }
 
-    data class Poses (val x: Double, val y: Double, val heading: Double)
+
 
 }
-
+data class Poses (val x: Double, val y: Double, val heading: Double)
 object Angle {
     fun wrap(theta: Double): Double {
         var angle = theta
