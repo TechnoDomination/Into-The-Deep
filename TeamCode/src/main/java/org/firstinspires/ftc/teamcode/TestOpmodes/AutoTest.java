@@ -11,12 +11,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-import org.firstinspires.ftc.teamcode.AACatalystsReferenceCode.PathPlanning.Positions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Util.FieldPositions;
+import org.firstinspires.ftc.teamcode.Util.Positions;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
@@ -61,7 +60,7 @@ public class AutoTest extends LinearOpMode {
                         },
                         new SequentialAction(
                                 customActions.closeClaw,
-                                FieldPositions.Test.runToExact,
+                                Positions.Test.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

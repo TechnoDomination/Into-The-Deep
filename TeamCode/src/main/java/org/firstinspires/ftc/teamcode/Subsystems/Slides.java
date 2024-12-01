@@ -24,8 +24,9 @@ public class Slides {
     public enum State {
         HIGHBASKETSAMPLEDROP(2200),
         LOWBASKETSAMPLEDROP(1000),
-        SPECIMENALIGN(710),
+        SPECIMENALIGNDOWN(710),
         SPECIMENPULL(800),
+        SPECIMENALIGNUP(600),
         FULLDOWN(0),
         IDLE(0);
         public final double target;
@@ -59,7 +60,11 @@ public class Slides {
         SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
         SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
 
-        if (Math.abs(2200-encoder) < 50) {
+        if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(2200-encoder) < 50)) {
+            isTargetReached = true;
+        } else if (state == State.SPECIMENALIGNUP && (Math.abs(600-encoder) < 50)) {
+            isTargetReached = true;
+        }  else if (state == State.FULLDOWN && (Math.abs(0-encoder) < 50)) {
             isTargetReached = true;
         } else {
             isTargetReached = false;

@@ -146,6 +146,41 @@ public class CustomActions {
         }
     };
 
+    public Action prepareHighRung = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            arm.state = Arm.State.VERTICAL;
+            slides.state = Slides.State.SPECIMENALIGNUP;
+
+            if (slides.isTargetReached) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+
+    public Action hangSpecimen = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            boolean stepDone = false;
+
+            if (slides.isTargetReached){
+                claw.state = Claw.State.OUT;
+                if (claw.isTargetReached) {
+                    arm.state = Arm.State.REST;
+                    stepDone = true;
+                }
+            }
+
+            if (stepDone) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
 
 }

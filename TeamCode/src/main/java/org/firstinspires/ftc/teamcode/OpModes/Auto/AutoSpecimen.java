@@ -1,29 +1,25 @@
 package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Util.Positions;
-import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
-import org.firstinspires.ftc.teamcode.Actions.CustomActions;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
+import org.firstinspires.ftc.teamcode.Util.Positions;
 
-import java.text.FieldPosition;
 
-
-@Autonomous(name = "Auto Left Basket", group = "Test OpModes")
-public class AutoLeftBasket extends LinearOpMode {
+@Autonomous(name = "Auto Right Specimen", group = "Auto")
+public class AutoSpecimen extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -32,9 +28,9 @@ public class AutoLeftBasket extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry = FtcDashboard.getInstance().getTelemetry();
+        //telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(-35.0,-63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(9.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
@@ -67,35 +63,17 @@ public class AutoLeftBasket extends LinearOpMode {
                         new SequentialAction(
                                 customActions.closeClaw,
                                 new SleepAction(1),
-                                Positions.GoFront.runToExact,
+                                Positions.HighRung.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
                                 },
                                 new SleepAction(1),
-                                Positions.Basket.runToExact,
-                                Action -> {
-                                    drive.stopDrive();
-                                    return false;
-                                },
-                                new SleepAction(1),
-                                customActions.prepareHighBasket,
-                                new SleepAction(1),
-                                customActions.dropSample,
+                                customActions.prepareHighRung,
                                 new SleepAction(1),
                                 customActions.slidesFullDown,
                                 new SleepAction(1),
-                                Positions.YellowLeftbrick3.runToExact,
-                                Action -> {
-                                    drive.stopDrive();
-                                    return false;
-                                },
-                                Action -> {
-                                    arm.state = Arm.State.REST;
-                                    return false;
-                                }
-                                //customActions.prepareHighBasket,
-                                //customActions.openClaw
+                                customActions.hangSpecimen
                         )
 
                 )

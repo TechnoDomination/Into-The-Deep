@@ -23,7 +23,7 @@ public class SlidesTest extends LinearOpMode {
             } else if (gamepad1.a) {
                 slides.state = Slides.State.FULLDOWN;
             } else if (gamepad1.x) {
-                slides.state = Slides.State.SPECIMENALIGN;
+                slides.state = Slides.State.SPECIMENALIGNDOWN;
             }
 
             telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());

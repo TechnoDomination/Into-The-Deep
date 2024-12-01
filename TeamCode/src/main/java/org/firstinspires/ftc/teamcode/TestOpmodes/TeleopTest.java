@@ -33,7 +33,7 @@ public class TeleopTest extends LinearOpMode {
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
 
             //Drive Controls
-            //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             //Claw Controls
             if (gamepad2.left_bumper) {
@@ -50,7 +50,7 @@ public class TeleopTest extends LinearOpMode {
             } else if (gamepad1.a) {
                 slides.state = Slides.State.FULLDOWN;
             } else if (gamepad1.x) {
-                slides.state = Slides.State.SPECIMENALIGN;
+                slides.state = Slides.State.SPECIMENALIGNDOWN;
             } else if (gamepad1.b) {
                 slides.state = Slides.State.SPECIMENPULL;
             }

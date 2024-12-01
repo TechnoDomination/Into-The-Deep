@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Util.FieldPositions;
+import org.firstinspires.ftc.teamcode.Util.Positions;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
 @Config
@@ -43,11 +43,11 @@ public class DriveTuning extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
-                                FieldPositions.Test.runToExact,
-                                FieldPositions.Test2.runToExact,
-                                FieldPositions.Test.runToExact,
-                                FieldPositions.Test2.runToExact,
-                                FieldPositions.Test.runToExact,
+                                Positions.Test.runToExact,
+                                Positions.Test2.runToExact,
+                                Positions.Test.runToExact,
+                                Positions.Test2.runToExact,
+                                Positions.Test.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
