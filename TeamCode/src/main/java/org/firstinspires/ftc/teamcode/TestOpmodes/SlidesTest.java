@@ -5,9 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
+import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
 @TeleOp(name="SlidesTest", group="TestOpModes")
 public class SlidesTest extends LinearOpMode {
+
+    //todo - Arya - FTC dashboard tune PID
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -17,6 +20,7 @@ public class SlidesTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             slides.update();
+            slides.controller.setPIDF(new PIDFParams());
 
             if (gamepad1.y) {
                 slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
