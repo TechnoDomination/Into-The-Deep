@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 
-@Autonomous(name = "Auto Left Basket v2", group = "Test OpModes")
+@Autonomous(name = "Auto Left Basket v2", group = "Auto")
 public class AutoLeftBasketv2 extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;

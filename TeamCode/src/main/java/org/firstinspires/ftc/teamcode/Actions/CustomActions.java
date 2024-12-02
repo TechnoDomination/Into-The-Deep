@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.Action;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
@@ -17,24 +18,38 @@ import java.util.List;
 
 public class CustomActions {
     public Claw claw;
+    public ClawRotater clawRotater;
     public Arm arm;
     public Slides slides;
+    public Drive drive = Drive.instance;
 
     public CustomActions(HardwareMap hardwareMap){
          claw = new Claw(hardwareMap);
+         clawRotater = new ClawRotater(hardwareMap);
          arm = new Arm(hardwareMap);
          slides = new Slides(hardwareMap);
     }
 
     public void update(){
         claw.update();
+        clawRotater.update();
         arm.update();
         slides.update();
     }
 
     public List<String> getTelemetry(){
-        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry());
+        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Claw Rotater = "+clawRotater.getClawRotaterTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry());
     }
+
+    public Action stopDrive = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            drive.stopDrive();
+
+            return false;
+        }
+    };
 
     public Action closeClaw = new Action() {
         @Override

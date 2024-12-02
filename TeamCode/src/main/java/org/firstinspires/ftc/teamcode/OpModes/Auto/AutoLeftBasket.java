@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Util.Positions;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
 
-@Autonomous(name = "Auto Left Basket", group = "Test OpModes")
+@Autonomous(name = "Auto Left Basket", group = "Auto")
 public class AutoLeftBasket extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
@@ -55,11 +55,7 @@ public class AutoLeftBasket extends LinearOpMode {
                         new SequentialAction(
 
                                 Positions.GoFront.runToExact,
-
-                                Action -> {
-                                    drive.stopDrive();
-                                    return false;
-                                },
+                                customActions.stopDrive,
                                 new SleepAction(1),
                                 Positions.Basket.runToExact,
                                 Action -> {

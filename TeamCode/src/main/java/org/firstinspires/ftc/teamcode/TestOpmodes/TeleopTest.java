@@ -4,7 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -15,9 +17,10 @@ public class TeleopTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        ClawRotater clawRotater = new ClawRotater(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
 
@@ -26,6 +29,7 @@ public class TeleopTest extends LinearOpMode {
             localizer.update();
             slides.update();
             claw.update();
+            clawRotater.update();
             arm.update();
 
             telemetry.addData("X pos", Localizer.pose.getX());
@@ -43,6 +47,15 @@ public class TeleopTest extends LinearOpMode {
                 claw.state = Claw.State.OUT;
             }
             telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
+
+            //Claw Rotater Controls
+            if (gamepad1.left_bumper) {
+                clawRotater.state = ClawRotater.State.IN;
+            }
+            if (gamepad1.right_bumper) {
+                clawRotater.state = ClawRotater.State.OUT;
+            }
+            telemetry.addData("Claw Rotater Telemetry = ", clawRotater.getClawRotaterTelemetry());
 
             //Slides Controls
             if (gamepad1.y) {

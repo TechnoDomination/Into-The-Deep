@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
@@ -18,6 +19,7 @@ public class TeleOp extends LinearOpMode {
         Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        ClawRotater clawRotater = new ClawRotater(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
 
@@ -26,6 +28,7 @@ public class TeleOp extends LinearOpMode {
             localizer.update();
             slides.update();
             claw.update();
+            clawRotater.update();
             arm.update();
 
             telemetry.addData("X pos", Localizer.pose.getX());
@@ -33,7 +36,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
 
             //Drive Controls
-            drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             //Claw Controls
             if (gamepad2.left_bumper) {
@@ -43,6 +46,15 @@ public class TeleOp extends LinearOpMode {
                 claw.state = Claw.State.OUT;
             }
             telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
+
+            //Claw Rotater Controls
+            if (gamepad1.left_bumper) {
+                clawRotater.state = ClawRotater.State.IN;
+            }
+            if (gamepad1.right_bumper) {
+                clawRotater.state = ClawRotater.State.OUT;
+            }
+            telemetry.addData("Claw Rotater Telemetry = ", clawRotater.getClawRotaterTelemetry());
 
             //Slides Controls
             if (gamepad1.y) {

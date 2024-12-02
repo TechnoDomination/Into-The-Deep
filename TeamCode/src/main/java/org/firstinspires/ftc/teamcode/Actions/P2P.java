@@ -8,12 +8,14 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Angle;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
 //RR - Actions
 public class P2P implements Action {
     Vector2d targetVector;
     double rotation;
+    Poses robotPosition;
 
     public P2P(Vector2d vector2d, double rotation2d) {
         this.targetVector = vector2d;
@@ -24,7 +26,7 @@ public class P2P implements Action {
     @Override
     public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-        Localizer.Poses robotPosition = Localizer.pose;
+        robotPosition = Localizer.pose;
         Drive motorController = Drive.instance;
 
         double latError = targetVector.y - robotPosition.getY();

@@ -12,7 +12,8 @@ public class Arm {
     public DcMotorEx ArmMotor;
 
     public static double angle = 0.0;
-    public PIDFController controller = new PIDFController(new PIDFParams(0.855,0.0005,0.0175,0.0));
+    //public PIDFController controller = new PIDFController(new PIDFParams(0.855,0.0005,0.0175,0.0));
+    public PIDFController controller = new PIDFController(new PIDFParams(0,0,0,0));
     public State state = State.IDLE;
 
     public boolean isTargetReached = false;
@@ -20,8 +21,8 @@ public class Arm {
 
 
     public enum State {
-        SAMPLEPICKING(160),
-        SPECIMENPICKING(140),
+        SAMPLEPICKING(180),
+        SPECIMENPICKING(170),
         SUBMERSIBLE(125),
         SAMPLEDEPOSIT(115),
         VERTICAL(90),
@@ -39,6 +40,8 @@ public class Arm {
         ArmMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        controller.setPIDF(new PIDFParams(3.345,6,0.08,0.0));
 
         instance = this;
 
