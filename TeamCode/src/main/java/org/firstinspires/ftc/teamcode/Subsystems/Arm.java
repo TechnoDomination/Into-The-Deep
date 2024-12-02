@@ -20,8 +20,8 @@ public class Arm {
 
 
     public enum State {
-        SAMPLEPICKING(180),
-        SPECIMENPICKING(160),
+        SAMPLEPICKING(160),
+        SPECIMENPICKING(140),
         SUBMERSIBLE(125),
         SAMPLEDEPOSIT(115),
         VERTICAL(90),

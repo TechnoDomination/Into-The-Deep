@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
@@ -26,7 +27,7 @@ public class DriveTuning extends LinearOpMode {
     public void runOpMode() {
         telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
         Drive drive = new Drive(hardwareMap);
 
 

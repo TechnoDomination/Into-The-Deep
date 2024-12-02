@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 
 public class SampleAuto extends LinearOpMode {
@@ -13,7 +14,7 @@ public class SampleAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Localizer localizer = new Localizer(hardwareMap, new Localizer.Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
 
         //subsystems
         Claw claw = new Claw(hardwareMap);

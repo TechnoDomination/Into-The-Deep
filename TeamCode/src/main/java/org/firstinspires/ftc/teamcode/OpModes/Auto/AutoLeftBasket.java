@@ -8,19 +8,13 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.Positions;
-import org.firstinspires.ftc.teamcode.Util.PIDFParams;
-import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
-
-import java.text.FieldPosition;
 
 
 @Autonomous(name = "Auto Left Basket", group = "Test OpModes")
@@ -54,12 +48,14 @@ public class AutoLeftBasket extends LinearOpMode {
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
                             for(String string: customActions.getTelemetry()) telemetry.addLine(string);
                             telemetry.update();
-
+//.asihfdaus
                             return true;
                         },
 
                         new SequentialAction(
+
                                 Positions.GoFront.runToExact,
+
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

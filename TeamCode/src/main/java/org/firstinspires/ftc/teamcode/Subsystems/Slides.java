@@ -29,8 +29,8 @@ public class Slides {
         SPECIMENALIGNUP(600),
         FULLDOWN(0),
         IDLE(0);
-        public final double target;
-        State(double Target) {
+        public final int target;
+        State(int Target) {
             this.target = Target;
         }
     }
@@ -60,6 +60,7 @@ public class Slides {
         SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
         SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
 
+
         if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(2200-encoder) < 50)) {
             isTargetReached = true;
         } else if (state == State.SPECIMENALIGNUP && (Math.abs(600-encoder) < 50)) {
@@ -76,7 +77,9 @@ public class Slides {
 
         String telemetry = "";
         telemetry = telemetry + "\n Current Position = " + SlideMotor1.getCurrentPosition();
+        telemetry = telemetry + "\n " + state.target;
         telemetry = telemetry + "\n ";
+
         return telemetry;
     }
 

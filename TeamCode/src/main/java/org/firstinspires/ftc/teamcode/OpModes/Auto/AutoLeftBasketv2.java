@@ -12,15 +12,12 @@ import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Subsystems.Slides;
-import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 
-@Autonomous(name = "Auto Yellow Sample 1+0", group = "Auto")
-public class AutoYellowSample1 extends LinearOpMode {
+@Autonomous(name = "Auto Left Basket v2", group = "Test OpModes")
+public class AutoLeftBasketv2 extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -31,12 +28,11 @@ public class AutoYellowSample1 extends LinearOpMode {
     public void runOpMode() {
         telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Poses(-35.0,-63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(-35.0,-63.0,-Math.PI/2));
         Drive drive = new Drive(hardwareMap);
-        Claw claw = new Claw(hardwareMap);
-        Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);
+        customActions.update();
 
         waitForStart();
 
@@ -44,27 +40,21 @@ public class AutoYellowSample1 extends LinearOpMode {
                 new ParallelAction(
                         telemetryPacket -> {
                             localizer.update();
-                            drive.xPid.setPIDF(new PIDFParams(p,i,d));
-                            drive.yPid.setPIDF(new PIDFParams(p2,i2,d2));
-                            drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
-                            claw.update();
-                            arm.update();
-                            slides.update();
+                            customActions.update();
 
                             telemetry.addData("X pos", Localizer.pose.getX());
                             telemetry.addData("Y pos", Localizer.pose.getY());
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
-                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
-                            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
-                            telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+                            for(String string: customActions.getTelemetry()) telemetry.addLine(string);
                             telemetry.update();
-
+//.asihfdaus
                             return true;
                         },
+
                         new SequentialAction(
-                                customActions.closeClaw,
-                                new SleepAction(1),
-                                Positions.GoFront.runToExact,
+                                /*new ParallelAction(
+                                        Positions.GoFront.runToExact,
+                                )*/
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
