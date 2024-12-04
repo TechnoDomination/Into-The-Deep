@@ -49,6 +49,7 @@ public class AutoSpecimen extends LinearOpMode {
                             drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
                             claw.update();
                             arm.update();
+                            customActions.update();
                             slides.update();
 
                             telemetry.addData("X pos", Localizer.pose.getX());
@@ -62,7 +63,7 @@ public class AutoSpecimen extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
-                                customActions.closeClaw,
+                               // customActions.closeClaw,
                                 new SleepAction(1),
                                 Positions.HighRung.runToExact,
                                 Action -> {

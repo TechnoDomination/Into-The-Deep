@@ -24,7 +24,7 @@ public class Arm {
         SAMPLEPICKING(180),
         SPECIMENPICKING(170),
         SUBMERSIBLE(125),
-        SAMPLEDEPOSIT(115),
+        SAMPLEDEPOSIT(105),
         VERTICAL(90),
         SAMPLEPREPARATION(60),
         REST(0),
@@ -41,7 +41,7 @@ public class Arm {
         ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        controller.setPIDF(new PIDFParams(3.345,6,0.08,0.0));
+        controller.setPIDF(new PIDFParams(3.345,7,0.095,0.0));
 
         instance = this;
 
@@ -56,7 +56,7 @@ public class Arm {
         double motorPower = controller.calculate(state.target - angle, angle);
         ArmMotor.setPower(Range.clip(motorPower * .75,-0.75,0.75));
 
-        if (state.target - angle < Math.toRadians(5.0)){
+        if (Math.abs(state.target - angle) < Math.toRadians(2)){
             isTargetReached = true;
         } else {
             isTargetReached = false;
@@ -71,7 +71,10 @@ public class Arm {
         telemetry = telemetry + "\n State current = " + state;
         telemetry = telemetry + "\n State target in radians = " + state.target;
         telemetry = telemetry + "\n Angle from encoder = " + angle;
+        telemetry = telemetry + "\n Radians of 2 = " + Math.toRadians(2.0);
         telemetry = telemetry + "\n Motor power = " + controller.calculate(state.target - angle, angle);
+        telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;
+        telemetry = telemetry + "\n Is Target calculation " + (Math.abs(state.target - angle) < Math.toRadians(2));
         telemetry = telemetry + "\n ";
         return telemetry;
     }

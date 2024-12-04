@@ -27,7 +27,6 @@ public class AutoLeftBasket extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry = FtcDashboard.getInstance().getTelemetry();
 
         Localizer localizer = new Localizer(hardwareMap, new Poses(-35.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
@@ -46,7 +45,8 @@ public class AutoLeftBasket extends LinearOpMode {
                             telemetry.addData("X pos", Localizer.pose.getX());
                             telemetry.addData("Y pos", Localizer.pose.getY());
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
-                            for(String string: customActions.getTelemetry()) telemetry.addLine(string);
+                            //for(String string: customActions.getTelemetry()) telemetry.addLine(string);
+                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
                             telemetry.update();
 //.asihfdaus
                             return true;
@@ -74,10 +74,14 @@ public class AutoLeftBasket extends LinearOpMode {
                                     drive.stopDrive();
                                     return false;
                                 },
+                                customActions.pickSample,
+                                customActions.closeClaw,
                                 Action -> {
                                     arm.state = Arm.State.REST;
                                     return false;
                                 }
+
+
                                 //customActions.prepareHighBasket,
                                 //customActions.openClaw
                         )

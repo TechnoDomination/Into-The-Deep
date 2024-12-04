@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class ClawRotater {
     private final Servo ClawRotaterServo1;
-    public State state = State.IN;
+    public State state = State.OUT;
     public boolean isTargetReached = false;
 
     public enum State {
@@ -15,8 +15,6 @@ public class ClawRotater {
 
     public ClawRotater(HardwareMap hardwareMap) {
         ClawRotaterServo1 = hardwareMap.get(Servo.class, "ClawRotaterServo1");
-
-
     }
 
     public void update() {

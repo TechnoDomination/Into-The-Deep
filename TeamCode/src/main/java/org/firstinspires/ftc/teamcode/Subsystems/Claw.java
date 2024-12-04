@@ -48,6 +48,7 @@ public class Claw {
     public String getClawTelemetry(){
         String telemetry = "";
         telemetry = telemetry + "\n ClawServo1 Position = " + ClawServo1.getPosition();
+        telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;
         telemetry = telemetry + "\n ";
         return telemetry;
     }

@@ -22,6 +22,7 @@ public class CustomActions {
     public Arm arm;
     public Slides slides;
     public Drive drive = Drive.instance;
+    public boolean sampleDropped = false;
 
     public CustomActions(HardwareMap hardwareMap){
          claw = new Claw(hardwareMap);
@@ -128,12 +129,53 @@ public class CustomActions {
 
             boolean stepDone = false;
 
+
+            if (slides.isTargetReached){
+                arm.state = Arm.State.SAMPLEDEPOSIT;
+                if (arm.isTargetReached){
+                    claw.state = Claw.State.OUT;
+                    if (claw.isTargetReached) {
+                        stepDone = true;
+                        sampleDropped = true;
+                    }
+                }
+            }
+
+            return !stepDone;
+        }
+    };
+
+    public Action afterBasketDrop = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            boolean stepDone = false;
+
+            if (sampleDropped){
+                sampleDropped = false;
+                arm.state = Arm.State.SAMPLEPREPARATION;
+                slides.state = Slides.State.FULLDOWN;
+            }
+
+            return !slides.isTargetReached;
+        }
+    };
+
+    public Action afterDropSample = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            boolean stepDone = false;
+
             if (slides.isTargetReached){
                 arm.state = Arm.State.SAMPLEDEPOSIT;
                 if (arm.isTargetReached){
                     claw.state = Claw.State.OUT;
                     if (claw.isTargetReached) {
                         arm.state = Arm.State.SAMPLEPREPARATION;
+                        //if (slides.get)
+                        slides.state = Slides.State.FULLDOWN;
+
                         stepDone = true;
                     }
                 }
@@ -171,6 +213,30 @@ public class CustomActions {
                     arm.state = Arm.State.REST;
                     stepDone = true;
                 }
+            }
+
+            if (stepDone) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
+
+    public Action pickSample = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            boolean stepDone = false;
+
+            arm.state = Arm.State.SAMPLEPICKING;
+            if (arm.isTargetReached) {
+               /* claw.state = Claw.State.IN;
+                if (claw.isTargetReached) {
+                    arm.state = Arm.State.VERTICAL; */
+                    stepDone = true;
+               // }
+
             }
 
             if (stepDone) {

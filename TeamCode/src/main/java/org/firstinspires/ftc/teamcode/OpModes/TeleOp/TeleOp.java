@@ -36,7 +36,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
 
             //Drive Controls
-            //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             //Claw Controls
             if (gamepad2.left_bumper) {

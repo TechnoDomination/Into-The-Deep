@@ -20,7 +20,7 @@ public class SlidesTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             slides.update();
-            slides.controller.setPIDF(new PIDFParams());
+            //slides.controller.setPIDF(new PIDFParams());
 
             if (gamepad1.y) {
                 slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
@@ -31,6 +31,7 @@ public class SlidesTest extends LinearOpMode {
             }
 
             telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+            telemetry.addData("Limit Switch Telemetry = ", slides.getLimitSwitchTelemetry());
             telemetry.update();
 
         }

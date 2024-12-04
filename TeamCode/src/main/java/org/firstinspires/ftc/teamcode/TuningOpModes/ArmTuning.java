@@ -33,7 +33,7 @@ public class ArmTuning extends LinearOpMode {
         ArmMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        PIDFController controller = new PIDFController(new PIDFParams(3.345,6,0.08,0.0));
+        PIDFController controller = new PIDFController(new PIDFParams(3.345,7,0.095,0.0));
 
         waitForStart();
 

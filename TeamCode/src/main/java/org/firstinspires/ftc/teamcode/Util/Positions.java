@@ -12,7 +12,7 @@ public enum Positions {
     YellowLeftbrick3(new Vector2d(-49, -33.0), 0.0),
 
     // point scoring spots
-    Basket(new Vector2d(-53, -48),-PI*0.6),
+    Basket(new Vector2d(-47, -48),-PI*0.67),
     GoFront(new Vector2d(-35, -53), 0.0),
 
     HighRung(new Vector2d(9.0, -34), 0.0),

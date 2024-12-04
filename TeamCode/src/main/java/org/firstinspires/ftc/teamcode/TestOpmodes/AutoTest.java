@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 public class AutoTest extends LinearOpMode {
     @Override
     public void runOpMode() {
-        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(-35,-63,0.0));
         Drive drive = new Drive(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);
         customActions.update();
@@ -46,20 +46,16 @@ public class AutoTest extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
-                                Positions.Test.runToExact,
-                                Action -> {
-                                    drive.stopDrive();
-                                    return false;
-                                },
-                                /*Action -> {
-                                    claw.state = Claw.State.IN;
-                                    return false;
-                                }*/
+                                Positions.GoFront.runToExact,
+                                customActions.stopDrive,
+                                new SleepAction(1),
+                                Positions.Basket.runToExact,
+                                customActions.stopDrive,
                                 customActions.prepareHighBasket,
-                                new SleepAction(0.5),
+                                new SleepAction(2),
                                 customActions.dropSample,
-                                new SleepAction(0.5),
-                                customActions.slidesFullDown
+                                new SleepAction(2),
+                                customActions.afterBasketDrop
 
                         )
 
