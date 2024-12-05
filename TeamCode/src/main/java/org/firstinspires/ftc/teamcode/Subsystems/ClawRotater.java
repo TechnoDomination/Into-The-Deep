@@ -8,6 +8,7 @@ public class ClawRotater {
     private final Servo ClawRotaterServo1;
     public State state = State.OUT;
     public boolean isTargetReached = false;
+    public static ClawRotater instance;
 
     public enum State {
         IN, OUT, STOP
@@ -15,6 +16,7 @@ public class ClawRotater {
 
     public ClawRotater(HardwareMap hardwareMap) {
         ClawRotaterServo1 = hardwareMap.get(Servo.class, "ClawRotaterServo1");
+        instance = this;
     }
 
     public void update() {

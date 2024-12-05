@@ -11,11 +11,15 @@ public enum Positions {
     //Samples on ground
     YellowLeftbrick3(new Vector2d(-49, -33.0), 0.0),
 
-    // point scoring spots
+    //Sample related movement
     Basket(new Vector2d(-47, -48),-PI*0.67),
-    GoFront(new Vector2d(-35, -53), 0.0),
+    GoFrontSample(new Vector2d(-35, -53), 0.0),
 
-    HighRung(new Vector2d(9.0, -34), 0.0),
+    //Specmien related movement
+    HighRung(new Vector2d(8, -34), 0.0),
+    GoFrontSpecimen(new Vector2d(9, -34), 0.0),
+    GoBackSpecimen(new Vector2d(8, -60), 0.0),
+    SpecimenOpZone(new Vector2d(27, 58), PI * 0.5),
 
     Test(new Vector2d(0.0,15.0),0.0),
     Test2(new Vector2d(0.0,0.0),0.0);

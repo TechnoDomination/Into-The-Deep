@@ -17,18 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomActions {
-    public Claw claw;
-    public ClawRotater clawRotater;
-    public Arm arm;
-    public Slides slides;
+    public Claw claw = Claw.instance;
+    public ClawRotater clawRotater = ClawRotater.instance;
+    public Arm arm = Arm.instance;
+    public Slides slides = Slides.instance;
     public Drive drive = Drive.instance;
     public boolean sampleDropped = false;
+    public static CustomActions instance;
 
     public CustomActions(HardwareMap hardwareMap){
-         claw = new Claw(hardwareMap);
-         clawRotater = new ClawRotater(hardwareMap);
-         arm = new Arm(hardwareMap);
-         slides = new Slides(hardwareMap);
+         instance = this;
     }
 
     public void update(){
@@ -87,6 +85,36 @@ public class CustomActions {
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
             arm.state = Arm.State.SAMPLEPICKING;
+
+            return !arm.isTargetReached;
+        }
+    };
+
+    public Action armSpecimenPicking = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            arm.state = Arm.State.SPECIMENPICKING;
+
+            return !arm.isTargetReached;
+        }
+    };
+
+    public Action armSampleDeposit = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            arm.state = Arm.State.SAMPLEDEPOSIT;
+
+            return !arm.isTargetReached;
+        }
+    };
+
+    public Action armRest = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            arm.state = Arm.State.REST;
 
             return !arm.isTargetReached;
         }
@@ -161,43 +189,16 @@ public class CustomActions {
         }
     };
 
-    public Action afterDropSample = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            boolean stepDone = false;
-
-            if (slides.isTargetReached){
-                arm.state = Arm.State.SAMPLEDEPOSIT;
-                if (arm.isTargetReached){
-                    claw.state = Claw.State.OUT;
-                    if (claw.isTargetReached) {
-                        arm.state = Arm.State.SAMPLEPREPARATION;
-                        //if (slides.get)
-                        slides.state = Slides.State.FULLDOWN;
-
-                        stepDone = true;
-                    }
-                }
-            }
-
-            return !stepDone;
-        }
-    };
 
     //todo make custom action that stops drive
     public Action prepareHighRung = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            arm.state = Arm.State.VERTICAL;
-            slides.state = Slides.State.SPECIMENALIGNUP;
+            arm.state = Arm.State.SAMPLEDEPOSIT;
+            slides.state = Slides.State.SPECIMENALIGNDOWN;
 
-            if (slides.isTargetReached) {
-                return false;
-            } else {
-                return true;
-            }
+            return !slides.isTargetReached;
         }
     };
 
@@ -231,12 +232,8 @@ public class CustomActions {
 
             arm.state = Arm.State.SAMPLEPICKING;
             if (arm.isTargetReached) {
-               /* claw.state = Claw.State.IN;
-                if (claw.isTargetReached) {
-                    arm.state = Arm.State.VERTICAL; */
-                    stepDone = true;
-               // }
-
+                claw.state = Claw.State.IN;
+                stepDone = true;
             }
 
             if (stepDone) {

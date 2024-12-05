@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
@@ -13,9 +12,9 @@ import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
-import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 
@@ -34,9 +33,11 @@ public class AutoSpecimen extends LinearOpMode {
         Localizer localizer = new Localizer(hardwareMap, new Poses(9.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        ClawRotater clawRotater = new ClawRotater(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);
+        customActions.update();
 
         waitForStart();
 
@@ -44,38 +45,29 @@ public class AutoSpecimen extends LinearOpMode {
                 new ParallelAction(
                         telemetryPacket -> {
                             localizer.update();
-                            drive.xPid.setPIDF(new PIDFParams(p,i,d));
-                            drive.yPid.setPIDF(new PIDFParams(p2,i2,d2));
-                            drive.rPid.setPIDF(new PIDFParams(p3,i3,d3));
-                            claw.update();
-                            arm.update();
                             customActions.update();
-                            slides.update();
-
                             telemetry.addData("X pos", Localizer.pose.getX());
                             telemetry.addData("Y pos", Localizer.pose.getY());
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
-                            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
-                            telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
-                            telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+                            for(String string: customActions.getTelemetry()) telemetry.addLine(string);
                             telemetry.update();
-
                             return true;
                         },
                         new SequentialAction(
-                               // customActions.closeClaw,
-                                new SleepAction(1),
-                                Positions.HighRung.runToExact,
-                                Action -> {
-                                    drive.stopDrive();
-                                    return false;
-                                },
-                                new SleepAction(1),
                                 customActions.prepareHighRung,
-                                new SleepAction(1),
+                                new SleepAction(.25),
+                                Positions.HighRung.runToExact,
+                                customActions.stopDrive,
+                                new SleepAction(0.5),
                                 customActions.slidesFullDown,
-                                new SleepAction(1),
-                                customActions.hangSpecimen
+                                new SleepAction(.25),
+                                Positions.GoBackSpecimen.runToExact,
+                                customActions.stopDrive,
+                                new SleepAction(0.5),
+                                customActions.armRest,
+                                new SleepAction(0.5),
+                                Positions.SpecimenOpZone.runToExact,
+                                customActions.stopDrive
                         )
 
                 )

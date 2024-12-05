@@ -8,6 +8,7 @@ public class Claw {
     private final Servo ClawServo1;
     public State state = State.IN;
     public boolean isTargetReached = false;
+    public static Claw instance;
 
     public enum State {
         IN, OUT, STOP
@@ -16,7 +17,7 @@ public class Claw {
     public Claw(HardwareMap hardwareMap) {
         ClawServo1 = hardwareMap.get(Servo.class, "ClawServo1");
 
-
+        instance = this;
     }
 
     public void update() {

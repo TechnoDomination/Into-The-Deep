@@ -23,7 +23,7 @@ public class Slides {
 
     public static int highBasketTarget = 2150;
     public static int lowBasketTarget = 1000;
-    public static int specimenAlignDownTarget = 710;
+    public static int specimenAlignDownTarget = 750;
     public static int specimenAlignUpTarget = 600;
     public static int specimenPullTarget = 800;
     public static int fullDownTarget = 0;
@@ -73,11 +73,11 @@ public class Slides {
         SlideMotor2.setPower(motorPower);
 
 
-        if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(highBasketTarget-encoder) < 25)) {
+        if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(highBasketTarget-encoder) < 50)) {
             isTargetReached = true;
         } else if (state == State.SPECIMENALIGNUP && (Math.abs(specimenAlignUpTarget-encoder) < 50)) {
             isTargetReached = true;
-        } else if (state == State.SPECIMENALIGNDOWN && (Math.abs(specimenAlignDownTarget-encoder) < 50)) {
+        } else if (state == State.SPECIMENALIGNDOWN && (Math.abs(specimenAlignDownTarget-encoder) < 30)) {
             isTargetReached = true;
         } else if (state == State.SPECIMENPULL && (Math.abs(specimenPullTarget-encoder) < 50)) {
             isTargetReached = true;

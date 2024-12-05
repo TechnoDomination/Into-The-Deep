@@ -64,7 +64,7 @@ public class AutoYellowSample1 extends LinearOpMode {
                         new SequentialAction(
                                 customActions.closeClaw,
                                 new SleepAction(1),
-                                Positions.GoFront.runToExact,
+                                Positions.GoFrontSample.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;
