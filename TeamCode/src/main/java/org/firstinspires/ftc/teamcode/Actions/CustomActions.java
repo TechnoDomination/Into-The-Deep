@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
 
 public class CustomActions {
     public Claw claw = Claw.instance;
@@ -24,6 +26,9 @@ public class CustomActions {
     public Drive drive = Drive.instance;
     public boolean sampleDropped = false;
     public static CustomActions instance;
+    public ElapsedTime runTime = new ElapsedTime();
+    boolean timerStarted;
+    boolean reset = timerStarted;
 
     public CustomActions(HardwareMap hardwareMap){
          instance = this;
@@ -39,6 +44,18 @@ public class CustomActions {
     public List<String> getTelemetry(){
         return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Claw Rotater = "+clawRotater.getClawRotaterTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry());
     }
+
+    public Action resestTimer = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            timerStarted = false;
+
+            return false;
+        }
+    };
+
+
 
     public Action stopDrive = new Action() {
         @Override
@@ -70,11 +87,32 @@ public class CustomActions {
         }
     };
 
+    public Action openClawTeleOpHB = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (arm.state == Arm.State.SAMPLEDEPOSIT){
+                claw.state = Claw.State.OUT;
+                return !claw.isTargetReached;
+            }
+            else return true;
+
+
+        }
+    };
+
     public Action armVertical = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+
+
             arm.state = Arm.State.VERTICAL;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
 
             return !arm.isTargetReached;
         }
@@ -84,7 +122,17 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
             arm.state = Arm.State.SAMPLEPICKING;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
 
             return !arm.isTargetReached;
         }
@@ -94,7 +142,17 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
             arm.state = Arm.State.SPECIMENPICKING;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
 
             return !arm.isTargetReached;
         }
@@ -104,7 +162,17 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
             arm.state = Arm.State.SAMPLEDEPOSIT;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
 
             return !arm.isTargetReached;
         }
@@ -114,7 +182,37 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
             arm.state = Arm.State.REST;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !arm.isTargetReached;
+        }
+    };
+
+    public Action armSubmersible = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.SUBMERSIBLE;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
 
             return !arm.isTargetReached;
         }
@@ -179,7 +277,7 @@ public class CustomActions {
 
             boolean stepDone = false;
 
-            if (sampleDropped){
+            if (sampleDropped && arm.isTargetReached){
                 sampleDropped = false;
                 arm.state = Arm.State.SAMPLEPREPARATION;
                 slides.state = Slides.State.FULLDOWN;
@@ -189,16 +287,38 @@ public class CustomActions {
         }
     };
 
+    public Action armSamplePreperation = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-    //todo make custom action that stops drive
+            boolean stepDone = false;
+
+            arm.state = Arm.State.SAMPLEPREPARATION;
+
+            return !slides.isTargetReached;
+        }
+    };
+
+
     public Action prepareHighRung = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            arm.state = Arm.State.SAMPLEDEPOSIT;
-            slides.state = Slides.State.SPECIMENALIGNDOWN;
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
 
-            return !slides.isTargetReached;
+            arm.state = Arm.State.SAMPLEDEPOSIT;
+            slides.state = Slides.State.AUTOSPECIMENALIGN;
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !slides.isTargetReached && !arm.isTargetReached;
+
         }
     };
 
@@ -228,12 +348,22 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
             boolean stepDone = false;
 
             arm.state = Arm.State.SAMPLEPICKING;
             if (arm.isTargetReached) {
                 claw.state = Claw.State.IN;
                 stepDone = true;
+            }
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
             }
 
             if (stepDone) {
@@ -244,6 +374,53 @@ public class CustomActions {
         }
     };
 
+
+
+    //Test custom actions
+
+    public Action prepareHighRungTest = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.VERTICAL;
+            slides.state = Slides.State.AUTOSPECIMENALIGNTEST;
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !slides.isTargetReached && !arm.isTargetReached;
+
+        }
+    };
+
+    public Action slidesHighRungDownTest = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.SAMPLEDEPOSIT;
+            slides.state = Slides.State.FULLDOWN;
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !slides.isTargetReached;
+
+        }
+    };
 
 
 }

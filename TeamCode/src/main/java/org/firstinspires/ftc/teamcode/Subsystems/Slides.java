@@ -28,13 +28,22 @@ public class Slides {
     public static int specimenPullTarget = 800;
     public static int fullDownTarget = 0;
 
+    //For auto only
+    public static int autoSpecimenAlignTarget = 400;
+    public static int autoSpecimenPullDownTarget = 50;//700;
+
     public enum State {
+        AUTOSPECIMENALIGN(autoSpecimenAlignTarget),
         HIGHBASKETSAMPLEDROP(highBasketTarget),
         LOWBASKETSAMPLEDROP(lowBasketTarget),
         SPECIMENALIGNDOWN(specimenAlignDownTarget),
         SPECIMENPULL(specimenPullTarget),
         SPECIMENALIGNUP(specimenAlignUpTarget),
         FULLDOWN(fullDownTarget),
+
+        AUTOSPECIMENALIGNTEST(autoSpecimenAlignTarget),
+        AUTOSPECIMENPULLDOWNTEST(autoSpecimenPullDownTarget),
+
         IDLE(0);
         public final int target;
         State(int Target) {
@@ -73,7 +82,7 @@ public class Slides {
         SlideMotor2.setPower(motorPower);
 
 
-        if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(highBasketTarget-encoder) < 50)) {
+        /*if (state == State.HIGHBASKETSAMPLEDROP && (Math.abs(highBasketTarget-encoder) < 50)) {
             isTargetReached = true;
         } else if (state == State.SPECIMENALIGNUP && (Math.abs(specimenAlignUpTarget-encoder) < 50)) {
             isTargetReached = true;
@@ -84,6 +93,12 @@ public class Slides {
         } else if (state == State.LOWBASKETSAMPLEDROP && (Math.abs(lowBasketTarget-encoder) < 50)) {
             isTargetReached = true;
         } else if (state == State.FULLDOWN && (Math.abs(fullDownTarget-encoder) < 50)) {
+            isTargetReached = true;
+        } else {
+            isTargetReached = false;
+        }*/
+
+        if (Math.abs(state.target-encoder) < 50) {
             isTargetReached = true;
         } else {
             isTargetReached = false;

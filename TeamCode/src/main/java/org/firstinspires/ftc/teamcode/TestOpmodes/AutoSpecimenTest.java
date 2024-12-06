@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes.Auto;
+package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 
-@Autonomous(name = "Auto Right Specimen", group = "Auto")
-public class AutoSpecimen extends LinearOpMode {
+@Autonomous(name = "Auto Right Specimen Test", group = "TestOpModes")
+public class AutoSpecimenTest extends LinearOpMode {
 
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
@@ -57,32 +57,29 @@ public class AutoSpecimen extends LinearOpMode {
                         },
                         new SequentialAction(
                                 //Go to rung
-                                customActions.prepareHighRung,
+                                customActions.prepareHighRungTest,
                                 customActions.resestTimer,
                                 new SleepAction(0.5),
-                                Positions.HighRung.runToExact,
+                                Positions.HighRungTest.runToExact,
                                 customActions.stopDrive,
-                                new SleepAction(0.5),
-                                Positions.GoFrontTinySpecimen.runToExact,
+                                new SleepAction(2),
+                                Positions.GoFrontTinySpecimenTest.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
 
-                                //Pull down specimen
-                                customActions.slidesFullDown,
-                                new SleepAction(0.5),
+                                customActions.slidesHighRungDownTest,
+                                new SleepAction(1),
                                 Positions.GoBackSpecimen.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
                                 customActions.openClaw,
-                                new SleepAction(2),
+                                new SleepAction(1),
+
 
                                 //Picking up new specimen
                                 Positions.TurnSpecimen.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
-                                //customActions.armSubmersible,
-                                //customActions.resestTimer,
-                                //new SleepAction(0.5),
                                 customActions.armSpecimenPicking,
                                 customActions.resestTimer,
                                 new SleepAction(0.5),
@@ -96,26 +93,27 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(0.5),
 
                                 //Going to rung again
-                                customActions.prepareHighRung,
+                                customActions.prepareHighRungTest,
                                 customActions.resestTimer,
                                 new SleepAction(0.5),
                                 Positions.StartingPosition.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.25),
-                                Positions.HighRung2.runToExact,
+                                Positions.HighRung2Test.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(.25),
-                                Positions.GoFrontTinySpecimen2.runToExact,
+                                Positions.GoFrontTiny2SpecimenTest.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(.25),
-                                customActions.slidesFullDown,
-                                new SleepAction(0.5),
+                                customActions.slidesHighRungDownTest,
+                                new SleepAction(1),
 
                                 //Reseting for teleop
                                 Positions.ObserservationZoneParkingSpecimen.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(1),
                                 customActions.armRest
+
 
                         )
 

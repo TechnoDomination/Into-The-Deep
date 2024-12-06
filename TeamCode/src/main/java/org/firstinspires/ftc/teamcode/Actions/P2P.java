@@ -16,6 +16,7 @@ public class P2P implements Action {
     Vector2d targetVector;
     double rotation;
     Poses robotPosition;
+    public boolean isTargetReached;
 
     public P2P(Vector2d vector2d, double rotation2d) {
         this.targetVector = vector2d;
@@ -50,7 +51,7 @@ public class P2P implements Action {
 
         //checking if it has reached the point
         return !(
-                Math.abs(latError) < 2.0 && Math.abs(axialError) < 2.0 && Math.abs(headingError) < Math.toRadians(5.0)
+                Math.abs(latError) < 2.5 && Math.abs(axialError) < 2.5 && Math.abs(headingError) < Math.toRadians(5.0)
         );
     }
 }

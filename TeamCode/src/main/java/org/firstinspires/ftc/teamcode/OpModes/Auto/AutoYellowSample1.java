@@ -82,7 +82,7 @@ public class AutoYellowSample1 extends LinearOpMode {
                                 new SleepAction(1),
                                 customActions.slidesFullDown,
                                 new SleepAction(1),
-                                Positions.YellowLeftbrick3.runToExact,
+                                Positions.LeftSample1.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

@@ -115,11 +115,14 @@ public class TeleopTest extends LinearOpMode {
 
                 runningActions.add(new SequentialAction(
                         customActions.prepareHighBasket,
-                        new SleepAction(0.5),
+                        new SleepAction(.25),
                         customActions.armSampleDeposit,
-                        new SleepAction(0.5),
-                        customActions.afterBasketDrop,
-                        new SleepAction(0.5)
+                        new SleepAction(.25),
+                        customActions.openClawTeleOpHB,
+                        new SleepAction(.25),
+                        customActions.armSamplePreperation,
+                        new SleepAction(0.25),
+                        customActions.slidesFullDown
                 ));
             }
 

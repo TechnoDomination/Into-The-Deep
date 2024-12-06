@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Util.Positions;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 
 
-@Autonomous(name = "Auto Test", group = "Test OpModes")
+@Autonomous(name = "Auto Test", group = "TestOpModes")
 public class AutoTest extends LinearOpMode {
     @Override
     public void runOpMode() {
@@ -57,7 +57,7 @@ public class AutoTest extends LinearOpMode {
                                 customActions.dropSample,
                                 new SleepAction(0.5),
                                 customActions.afterBasketDrop,
-                                Positions.YellowLeftbrick3.runToExact,
+                                Positions.LeftSample1.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
                                 customActions.armSpecimenPicking,

@@ -23,7 +23,8 @@ public class Arm {
     public enum State {
         SAMPLEPICKING(180),
         SPECIMENPICKING(170),
-        SUBMERSIBLE(125),
+        SPECIMENPICKING2(160),
+        SUBMERSIBLE(150),
         SAMPLEDEPOSIT(105),
         VERTICAL(90),
         SAMPLEPREPARATION(60),
@@ -56,7 +57,7 @@ public class Arm {
         double motorPower = controller.calculate(state.target - angle, angle);
         ArmMotor.setPower(Range.clip(motorPower * .75,-0.75,0.75));
 
-        if (Math.abs(state.target - angle) < Math.toRadians(2)){
+        if (Math.abs(state.target - angle) < Math.toRadians(5)){
             isTargetReached = true;
         } else {
             isTargetReached = false;
@@ -71,10 +72,10 @@ public class Arm {
         telemetry = telemetry + "\n State current = " + state;
         telemetry = telemetry + "\n State target in radians = " + state.target;
         telemetry = telemetry + "\n Angle from encoder = " + angle;
-        telemetry = telemetry + "\n Radians of 2 = " + Math.toRadians(2.0);
+        telemetry = telemetry + "\n Radians of 2 = " + Math.toRadians(5.0);
         telemetry = telemetry + "\n Motor power = " + controller.calculate(state.target - angle, angle);
         telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;
-        telemetry = telemetry + "\n Is Target calculation " + (Math.abs(state.target - angle) < Math.toRadians(2));
+        telemetry = telemetry + "\n Is Target calculation " + (Math.abs(state.target - angle) < Math.toRadians(5));
         telemetry = telemetry + "\n ";
         return telemetry;
     }
