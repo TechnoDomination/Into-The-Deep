@@ -51,7 +51,7 @@ public class P2P implements Action {
 
         //checking if it has reached the point
         return !(
-                Math.abs(latError) < 2.5 && Math.abs(axialError) < 2.5 && Math.abs(headingError) < Math.toRadians(5.0)
+                Math.abs(latError) < 3 && Math.abs(axialError) < 3 && Math.abs(headingError) < Math.toRadians(5.0)
         );
     }
 }

@@ -11,7 +11,7 @@ public class ClawRotater {
     public static ClawRotater instance;
 
     public enum State {
-        IN, OUT, STOP
+        IN, OUT, MIDDLE, STOP
     }
 
     public ClawRotater(HardwareMap hardwareMap) {
@@ -23,6 +23,10 @@ public class ClawRotater {
         switch (state) {
             case IN:
                 ClawRotaterServo1.setPosition(1);
+                break;
+
+            case MIDDLE:
+                ClawRotaterServo1.setPosition(0.5);
                 break;
 
             case OUT:
@@ -37,6 +41,8 @@ public class ClawRotater {
         if (state == State.IN && ClawRotaterServo1.getPosition() == 1){
             isTargetReached = true;
         } else if (state == State.OUT && ClawRotaterServo1.getPosition() == 0) {
+            isTargetReached = true;
+        } else if (state == State.MIDDLE && ClawRotaterServo1.getPosition() == 0.5) {
             isTargetReached = true;
         } else {
             isTargetReached = false;

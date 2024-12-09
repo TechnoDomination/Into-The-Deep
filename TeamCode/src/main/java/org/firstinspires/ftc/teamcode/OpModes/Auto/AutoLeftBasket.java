@@ -82,6 +82,7 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.closeClaw,
                                 new SleepAction(0.5),
                                 customActions.armVertical,
+                                
                                 //Drop sample 1
                                 Positions.Basket.runToExact,
                                 customActions.stopDrive,

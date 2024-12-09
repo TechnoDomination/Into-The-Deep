@@ -61,12 +61,16 @@ public class TeleopTest extends LinearOpMode {
             telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
 
             //Claw Rotater Controls
-            if (gamepad1.left_bumper) {
+            if (gamepad2.dpad_left) {
                 clawRotater.state = ClawRotater.State.IN;
             }
-            if (gamepad1.right_bumper) {
+            if (gamepad2.dpad_right) {
                 clawRotater.state = ClawRotater.State.OUT;
             }
+            if (gamepad2.dpad_up) {
+                clawRotater.state = ClawRotater.State.MIDDLE;
+            }
+
             telemetry.addData("Claw Rotater Telemetry = ", clawRotater.getClawRotaterTelemetry());
 
             //Slides Controls
@@ -109,10 +113,9 @@ public class TeleopTest extends LinearOpMode {
             }
             runningActions = newActions;
 
+            //Sample scoring
             if (gamepad1.dpad_up){
-
                 telemetry.addData("In Dpad Up ",gamepad1.dpad_up );
-
                 runningActions.add(new SequentialAction(
                         customActions.prepareHighBasket,
                         new SleepAction(.25),
@@ -124,13 +127,26 @@ public class TeleopTest extends LinearOpMode {
                         new SleepAction(0.25),
                         customActions.slidesFullDown
                 ));
+
+            }
+
+            //Specimen scoring
+            if (gamepad1.dpad_down) {
+                telemetry.addData("In Dpad Down ", gamepad1.dpad_down);
+                runningActions.add(new SequentialAction(
+                        customActions.prepareHighRungTest,
+                        customActions.resestTimer,
+                        new SleepAction(0.25),
+                        customActions.slidesHighRungDownTest,
+                        new SleepAction(0.5),
+                        customActions.openClaw,
+                        new SleepAction(0.5)
+                ));
+
             }
 
             telemetry.update();
 
         }
-
-
-
     }
 }

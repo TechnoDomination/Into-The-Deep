@@ -87,6 +87,26 @@ public class CustomActions {
         }
     };
 
+    public Action midClawRotater = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            clawRotater.state = ClawRotater.State.MIDDLE;
+
+            return !clawRotater.isTargetReached;
+        }
+    };
+
+    public Action outClawRotater = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            clawRotater.state = ClawRotater.State.OUT;
+
+            return !clawRotater.isTargetReached;
+        }
+    };
+
     public Action openClawTeleOpHB = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {

@@ -20,6 +20,7 @@ public class ClawRotaterTest extends LinearOpMode {
             if (gamepad2.right_bumper) {
                 clawRotater.state = ClawRotater.State.OUT;
             }
+
             clawRotater.update();
 
             telemetry.addData("Claw Rotater Telemetry = ", clawRotater.getClawRotaterTelemetry());

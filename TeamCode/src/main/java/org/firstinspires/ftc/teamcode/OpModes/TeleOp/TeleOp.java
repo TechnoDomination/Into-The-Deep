@@ -1,7 +1,12 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -10,8 +15,13 @@ import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp",group = "TeleOp")
 public class TeleOp extends LinearOpMode {
+
+    private List<Action> runningActions = new ArrayList<>();
 
     @Override
     public void runOpMode() {
@@ -22,6 +32,7 @@ public class TeleOp extends LinearOpMode {
         ClawRotater clawRotater = new ClawRotater(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
+        CustomActions customActions = new CustomActions(hardwareMap);
 
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){
@@ -30,6 +41,7 @@ public class TeleOp extends LinearOpMode {
             claw.update();
             clawRotater.update();
             arm.update();
+            customActions.update();
 
             telemetry.addData("X pos", Localizer.pose.getX());
             telemetry.addData("Y pos", Localizer.pose.getY());
@@ -48,10 +60,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Claw Telemetry = ", claw.getClawTelemetry());
 
             //Claw Rotater Controls
-            if (gamepad1.left_bumper) {
+            if (gamepad2.dpad_left) {
                 clawRotater.state = ClawRotater.State.IN;
             }
-            if (gamepad1.right_bumper) {
+            if (gamepad2.dpad_right) {
                 clawRotater.state = ClawRotater.State.OUT;
             }
             telemetry.addData("Claw Rotater Telemetry = ", clawRotater.getClawRotaterTelemetry());
@@ -82,10 +94,54 @@ public class TeleOp extends LinearOpMode {
             }
             telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
 
+            TelemetryPacket packet = new TelemetryPacket();
+
+            // updated based on gamepads
+
+            // update running actions
+            List<Action> newActions = new ArrayList<>();
+            for (Action action : runningActions) {
+                action.preview(packet.fieldOverlay());
+                if (action.run(packet)) {
+                    newActions.add(action);
+                }
+            }
+            runningActions = newActions;
+
+            //Sample scoring
+            if (gamepad1.dpad_up){
+                telemetry.addData("In Dpad Up ",gamepad1.dpad_up );
+                runningActions.add(new SequentialAction(
+                        customActions.prepareHighBasket,
+                        new SleepAction(.25),
+                        customActions.armSampleDeposit,
+                        new SleepAction(.25),
+                        customActions.openClawTeleOpHB,
+                        new SleepAction(.25),
+                        customActions.armSamplePreperation,
+                        new SleepAction(0.25),
+                        customActions.slidesFullDown
+                ));
+
+            }
+
+            //Specimen scoring
+            if (gamepad1.dpad_down) {
+                telemetry.addData("In Dpad Down ", gamepad1.dpad_down);
+                runningActions.add(new SequentialAction(
+                        customActions.prepareHighRungTest,
+                        customActions.resestTimer,
+                        new SleepAction(0.25),
+                        customActions.slidesHighRungDownTest,
+                        new SleepAction(0.5),
+                        customActions.openClaw,
+                        new SleepAction(0.5)
+                ));
+
+            }
+
             telemetry.update();
+
         }
-
-
-
     }
 }

@@ -25,11 +25,11 @@ public class Slides {
     public static int lowBasketTarget = 1000;
     public static int specimenAlignDownTarget = 750;
     public static int specimenAlignUpTarget = 600;
-    public static int specimenPullTarget = 800;
+    public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
 
     //For auto only
-    public static int autoSpecimenAlignTarget = 400;
+    public static int autoSpecimenAlignTarget = 440;
     public static int autoSpecimenPullDownTarget = 50;//700;
 
     public enum State {
