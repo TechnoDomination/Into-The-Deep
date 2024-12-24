@@ -9,14 +9,15 @@ import org.firstinspires.ftc.teamcode.Actions.P2P;
 
 public enum Positions {
     //Samples on ground
-    LeftSample1(new Vector2d(-48, -33.0), 0.0),
-    LeftSample2(new Vector2d(-62, -33.0), 0.0),
+    LeftSample1(new Vector2d(-48, -32.0), 0.0),
+    LeftSample2(new Vector2d(-62, -32.0), 0.0),
     //LeftSample3(new Vector2d(-46, 0.0), -PI/2), //original position
     LeftSample3pt2(new Vector2d(-58, -22.0), -PI*0.25), //a little forward
-    LeftSample3(new Vector2d(-45, -28.0), -PI * 0.25),
+    LeftSample3(new Vector2d(-46, -27.0), -PI * 0.25),
 
     //Sample related movement
     Basket(new Vector2d(-50, -44),-PI*0.67),
+    Basket2(new Vector2d(-49, -43),-PI*0.67),
     GoFrontSample(new Vector2d(-35, -53), 0.0),
 
     //Specmien related movement
@@ -36,8 +37,8 @@ public enum Positions {
     //Test Specmien related movement
     HighRungTest(new Vector2d(8, -40), 0.0),
     GoFrontTinySpecimenTest(new Vector2d(8, -25.5), 0.0),
-    HighRung2Test(new Vector2d(5, -40), 0.0),
-    GoFrontTiny2SpecimenTest(new Vector2d(5, -25.5), 0.0),
+    HighRung2Test(new Vector2d(12, -40), 0.0),
+    GoFrontTiny2SpecimenTest(new Vector2d(12, -25.5), 0.0),
     HighRung3Test(new Vector2d(2, -40), 0.0),
     GoFrontTiny3SpecimenTest(new Vector2d(2, -25.5), 0.0),
     FirstColorSampleTest(new Vector2d(46, -24), PI * 0.25),

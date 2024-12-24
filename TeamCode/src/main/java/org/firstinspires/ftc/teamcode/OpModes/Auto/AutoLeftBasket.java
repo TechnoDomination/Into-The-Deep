@@ -63,20 +63,22 @@ public class AutoLeftBasket extends LinearOpMode {
                                 Positions.Basket.runToExact,
                                 customActions.stopDrive,
                                 customActions.prepareHighBasket,
-                                new SleepAction(1),
+                                new SleepAction(0.5),
                                 customActions.dropSample,
-                                new SleepAction(1),
+                                new SleepAction(0.75),
                                 //customActions.afterBasketDrop,
                                 customActions.armSamplePreperation,
-                                new SleepAction(1),
+                                new SleepAction(0.75),
                                 customActions.slidesFullDown,
 
                                 //Pick sample 1
                                 Positions.LeftSample1.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
+                                customActions.armSubmersible,
+                                new SleepAction(0.25),
                                 customActions.armSpecimenPicking,
-                                new SleepAction(0.5),
+                                new SleepAction(0.75),
                                 customActions.armSamplePicking,
                                 new SleepAction(0.5),
                                 customActions.closeClaw,
@@ -84,21 +86,26 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.armVertical,
                                 
                                 //Drop sample 1
-                                Positions.Basket.runToExact,
+                                Positions.Basket2.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
                                 customActions.prepareHighBasket,
                                 new SleepAction(.5),
                                 customActions.dropSample,
                                 new SleepAction(0.5),
-                                customActions.afterBasketDrop,
+                                //customActions.afterBasketDrop,
+                                customActions.armSamplePreperation,
+                                new SleepAction(0.75),
+                                customActions.slidesFullDown,
 
                                 //Pick sample 2
                                 Positions.LeftSample2.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
+                                customActions.armSubmersible,
+                                new SleepAction(0.25),
                                 customActions.armSpecimenPicking,
-                                new SleepAction(0.5),
+                                new SleepAction(0.75),
                                 customActions.armSamplePicking,
                                 new SleepAction(0.5),
                                 customActions.closeClaw,
@@ -114,7 +121,7 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.dropSample,
                                 new SleepAction(0.5),
                                 customActions.afterBasketDrop,
-
+/*
                                 //Pick sample 3
                                 Positions.LeftSample3.runToExact,
                                 customActions.stopDrive,
@@ -142,7 +149,7 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.dropSample,
                                 new SleepAction(0.5),
                                 customActions.afterBasketDrop,
-
+*/
                                 //Reset for teleop
                                 customActions.armRest
 

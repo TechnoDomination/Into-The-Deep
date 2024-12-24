@@ -147,7 +147,7 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            arm.state = Arm.State.SAMPLEPICKING;
+            arm.state = Arm.State.AUTOSAMPLEPICKING;
 
             if (runTime.time() > 4) {
                 timerStarted = false;

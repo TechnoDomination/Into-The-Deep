@@ -21,6 +21,8 @@ public class Arm {
 
 
     public enum State {
+        AUTOSAMPLEPICKING(175),
+        BACKSPECIALTELEOP(-180),
         SAMPLEPICKING(180),
         SPECIMENPICKING(170),
         SPECIMENPICKING2(175),
