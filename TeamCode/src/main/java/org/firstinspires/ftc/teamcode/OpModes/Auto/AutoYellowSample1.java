@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
@@ -18,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
-
+@Disabled
 @Autonomous(name = "Auto Yellow Sample 1+0", group = "Auto")
 public class AutoYellowSample1 extends LinearOpMode {
 

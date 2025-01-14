@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Disabled
 @TeleOp(name = "TeleopTest",group = "TestOpModes")
 public class TeleopTest extends LinearOpMode {
 

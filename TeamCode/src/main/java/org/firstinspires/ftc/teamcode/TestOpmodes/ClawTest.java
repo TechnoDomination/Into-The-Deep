@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-
+@Disabled
 @TeleOp(name="ClawTest", group="TestOpModes")
 public class ClawTest extends LinearOpMode {
 

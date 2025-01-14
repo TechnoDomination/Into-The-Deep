@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
-
+@Disabled
 @TeleOp(name="SlidesTest", group="TestOpModes")
 public class SlidesTest extends LinearOpMode {
 

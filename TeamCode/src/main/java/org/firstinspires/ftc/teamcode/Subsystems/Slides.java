@@ -27,6 +27,7 @@ public class Slides {
     public static int specimenAlignUpTarget = 600;
     public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
+    public static int hangingTarget = 1425;
 
     //For auto only
     public static int autoSpecimenAlignTarget = 440;
@@ -43,6 +44,8 @@ public class Slides {
 
         AUTOSPECIMENALIGNTEST(autoSpecimenAlignTarget),
         AUTOSPECIMENPULLDOWNTEST(autoSpecimenPullDownTarget),
+
+        HANGING(hangingTarget),
 
         IDLE(0);
         public final int target;

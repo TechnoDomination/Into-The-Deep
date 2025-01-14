@@ -21,15 +21,17 @@ public class Arm {
 
 
     public enum State {
-        AUTOSAMPLEPICKING(175),
+        AUTOSPECIMENSAMPLEPICKING(180),
+        AUTOBASKETSAMPLEPICKING(175),
         BACKSPECIALTELEOP(-180),
         SAMPLEPICKING(180),
         SPECIMENPICKING(170),
         SPECIMENPICKING2(175),
-        SUBMERSIBLE(150),
+        SUBMERSIBLE(160),
         SAMPLEDEPOSIT(105),
         VERTICAL(90),
         SAMPLEPREPARATION(60),
+        HANGINGPOSITION(40),
         REST(0),
         IDLE(0.0);
         public final double target;

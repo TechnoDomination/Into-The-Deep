@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
@@ -17,13 +18,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.Positions;
+@Disabled
+@Autonomous(name = "Auto Left Basket parallel action test", group = "Auto")
+public class AutoLeftBasketParallelActionTest extends LinearOpMode {
 
-@Autonomous(name = "Auto Left Basket 0+1+2+3", group = "Auto")
-public class AutoLeftBasket extends LinearOpMode {
-
-    public static double p = 0.08, i = 0.0, d = 0.01;
+    /*public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
     public static double p3 = 1.1,i3 = 0.0,d3 = 0.0;
+*/
 
     @Override
     public void runOpMode() {
@@ -56,15 +58,22 @@ public class AutoLeftBasket extends LinearOpMode {
                         },
 
                         new SequentialAction(
-                                //Droping sample 0
+                                //Dropping sample 0
                                 Positions.GoFrontSample.runToExact,
-                                customActions.stopDrive,
                                 new SleepAction(0.1),
+
                                 Positions.Basket.runToExact,
+                                new SleepAction(0.1),
+
+                                new ParallelAction(
+                                        Positions.Basket.runToExact,
+                                        customActions.prepareHighBasket
+                                ),
+
                                 customActions.stopDrive,
                                 customActions.prepareHighBasket,
-                                new SleepAction(0.5),
-                                customActions.dropSample,
+                                new SleepAction(0.5)
+                              /*  customActions.dropSample,
                                 new SleepAction(0.75),
                                 //customActions.afterBasketDrop,
                                 customActions.armSamplePreperation,
@@ -121,7 +130,7 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.dropSample,
                                 new SleepAction(0.5),
                                 customActions.afterBasketDrop,
-/*
+
                                 //Pick sample 3
                                 Positions.LeftSample3.runToExact,
                                 customActions.stopDrive,
@@ -149,10 +158,10 @@ public class AutoLeftBasket extends LinearOpMode {
                                 customActions.dropSample,
                                 new SleepAction(0.5),
                                 customActions.afterBasketDrop,
-*/
+
                                 //Reset for teleop
                                 customActions.armRest
-
+*/
                         )
 
                 )

@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 
-
+@Disabled
 @TeleOp(name="ArmTest", group="TestOpModes")
 public class ArmTest extends LinearOpMode {
 

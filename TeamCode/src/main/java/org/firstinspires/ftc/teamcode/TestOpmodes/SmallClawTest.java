@@ -3,33 +3,32 @@ package org.firstinspires.ftc.teamcode.TestOpmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-
-import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 @Disabled
-@TeleOp(name="MizumiSlidesTest", group="TestOpModes")
-public class MizumiTest extends LinearOpMode {
-    public DcMotorEx SlideMotor1;
+@TeleOp(name="Small Claw Test", group="TestOpModes")
+public class SmallClawTest extends LinearOpMode {
+    public CRServo ClawServo1;
     @Override
     public void runOpMode() throws InterruptedException {
 
-        SlideMotor1 = hardwareMap.get(DcMotorEx.class, "MizumiMotor");
-        SlideMotor1.setDirection(DcMotor.Direction.REVERSE);
+        ClawServo1 = hardwareMap.get(CRServo.class, "SmallClaw1");
+        ClawServo1.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
 
             if(gamepad2.dpad_up) {
-                SlideMotor1.setPower(1);
+                ClawServo1.setPower(1);
 
             }
             if(gamepad2.dpad_down) {
-                SlideMotor1.setPower(-1);
+                ClawServo1.setPower(-1);
 
             }
             if(gamepad2.dpad_right) {
-                SlideMotor1.setPower(0);
+                ClawServo1.setPower(0);
 
             }
         }

@@ -15,9 +15,9 @@ public class ArmBackTeleOp extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             arm.update();
-            if (gamepad1.left_bumper) {
+            //if (gamepad1.left_bumper) {
                 arm.state = Arm.State.BACKSPECIALTELEOP;
-            }
+            //}
             telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
             telemetry.update();
         }

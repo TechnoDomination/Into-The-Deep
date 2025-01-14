@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
-
+@Disabled
 @TeleOp(name = "DriveTest",group = "TestOpModes")
 public class DriveTest extends LinearOpMode {
 

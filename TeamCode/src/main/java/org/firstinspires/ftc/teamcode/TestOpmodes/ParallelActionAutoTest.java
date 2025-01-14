@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.TestOpmodes;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -19,19 +18,15 @@ import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 @Disabled
-@Autonomous(name = "Auto Right Specimen Test", group = "TestOpModes")
-public class AutoSpecimenTest extends LinearOpMode {
-
+@Autonomous(name = "Parallel Action Test", group = "TestOpModes")
+public class ParallelActionAutoTest extends LinearOpMode {
     public static double p = 0.08, i = 0.0, d = 0.01;
     public static double p2 = 0.08,i2 = 0.0, d2 = 0.01;
     public static double p3 = 1.1,i3 = 0.0,d3 = 0.0;
 
-
     @Override
     public void runOpMode() {
-        //telemetry = FtcDashboard.getInstance().getTelemetry();
-
-        Localizer localizer = new Localizer(hardwareMap, new Poses(8.0,-63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(0,0,0.0));
         Drive drive = new Drive(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         ClawRotater clawRotater = new ClawRotater(hardwareMap);
@@ -50,71 +45,42 @@ public class AutoSpecimenTest extends LinearOpMode {
                             telemetry.addData("X pos", Localizer.pose.getX());
                             telemetry.addData("Y pos", Localizer.pose.getY());
                             telemetry.addData("Heading pos", Localizer.pose.getHeading());
-
-
                             for(String string: customActions.getTelemetry()) telemetry.addLine(string);
                             telemetry.update();
                             return true;
                         },
                         new SequentialAction(
-                                //Go to rung
-                                customActions.prepareHighRungTest,
-                                customActions.resestTimer,
-                                new SleepAction(0.5),
-                                Positions.HighRungTest.runToExact,
+                                Positions.TestRight.runToExact,
+                                customActions.stopDrive
+                                /*Positions.GoFrontSample.runToExact,
                                 customActions.stopDrive,
-                                new SleepAction(2),
-                                Positions.GoFrontTinySpecimenTest.runToExact,
+                                new SleepAction(0.1),
+                                Positions.Basket.runToExact,
                                 customActions.stopDrive,
+                                customActions.prepareHighBasket,
                                 new SleepAction(0.5),
-
-                                customActions.slidesHighRungDownTest,
-                                new SleepAction(1),
-                                Positions.GoBackSpecimen.runToExact,
-                                customActions.stopDrive,
+                                customActions.dropSample,
                                 new SleepAction(0.5),
-                                customActions.openClaw,
-                                new SleepAction(1),
-
-
-                                //Picking up new specimen
-                                Positions.TurnSpecimen.runToExact,
+                                customActions.afterBasketDrop,
+                                Positions.LeftSample1.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(0.5),
                                 customActions.armSpecimenPicking,
-                                customActions.resestTimer,
-                                new SleepAction(0.5),
-                                Positions.SpecimenObZone.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(0.5),
-                                Positions.SpecimenObZoneTiny.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(0.5),
+                                new SleepAction(1),
+                                customActions.armSamplePicking,
+                                new SleepAction(1),
                                 customActions.closeClaw,
                                 new SleepAction(0.5),
-
-                                //Going to rung again
-                                customActions.prepareHighRungTest,
-                                customActions.resestTimer,
+                                customActions.armVertical,
+                                Positions.Basket.runToExact,
+                                customActions.stopDrive,
                                 new SleepAction(0.5),
-                                Positions.StartingPosition.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(0.25),
-                                Positions.HighRung2Test.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(.25),
-                                Positions.GoFrontTiny2SpecimenTest.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(.25),
-                                customActions.slidesHighRungDownTest,
-                                new SleepAction(1),
-
-                                //Reseting for teleop
-                                Positions.ObserservationZoneParkingSpecimen.runToExact,
-                                customActions.stopDrive,
-                                new SleepAction(1),
-                                customActions.armRest
-
+                                customActions.prepareHighBasket,
+                                new SleepAction(.5),
+                                customActions.dropSample,
+                                new SleepAction(0.5),
+                                customActions.afterBasketDrop,
+                                customActions.armRest */
 
                         )
 
@@ -123,6 +89,3 @@ public class AutoSpecimenTest extends LinearOpMode {
 
     }
 }
-
-
-

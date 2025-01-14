@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TuningOpModes;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +13,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Util.PIDFController;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
-
+@Disabled
 @Config
 @TeleOp(name = "Arm Tuning", group = "Tuning OpModes")
 public class ArmTuning extends LinearOpMode {

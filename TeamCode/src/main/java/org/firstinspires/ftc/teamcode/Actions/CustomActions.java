@@ -13,10 +13,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
 
 public class CustomActions {
     public Claw claw = Claw.instance;
@@ -147,7 +145,27 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            arm.state = Arm.State.AUTOSAMPLEPICKING;
+            arm.state = Arm.State.AUTOSPECIMENSAMPLEPICKING;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !arm.isTargetReached;
+        }
+    };
+
+    public Action armBasketSamplePicking = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.AUTOBASKETSAMPLEPICKING;
 
             if (runTime.time() > 4) {
                 timerStarted = false;
@@ -198,6 +216,7 @@ public class CustomActions {
         }
     };
 
+
     public Action armRest = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -237,6 +256,25 @@ public class CustomActions {
             return !arm.isTargetReached;
         }
     };
+    public Action armHanging = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.HANGINGPOSITION;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !arm.isTargetReached;
+        }
+    };
 
     public Action slidesHighBasket = new Action() {
         @Override
@@ -253,6 +291,16 @@ public class CustomActions {
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
             slides.state = Slides.State.FULLDOWN;
+
+            return !slides.isTargetReached;
+        }
+    };
+
+    public Action slidesHanging = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            slides.state = Slides.State.HANGING;
 
             return !slides.isTargetReached;
         }

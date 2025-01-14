@@ -77,6 +77,8 @@ public class TeleOp extends LinearOpMode {
                 slides.state = Slides.State.SPECIMENALIGNDOWN;
             } else if (gamepad1.b) {
                 slides.state = Slides.State.SPECIMENPULL;
+            } else if (gamepad1.dpad_left) {
+                slides.state = Slides.State.HANGING;
             }
             telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
 
@@ -91,6 +93,8 @@ public class TeleOp extends LinearOpMode {
                 arm.state = Arm.State.SUBMERSIBLE;
             } else if (gamepad2.b && gamepad2.y) {
                 arm.state = Arm.State.SAMPLEDEPOSIT;
+            } else if (gamepad2.dpad_up) {
+                arm.state = Arm.State.HANGINGPOSITION;
             }
             telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
 
