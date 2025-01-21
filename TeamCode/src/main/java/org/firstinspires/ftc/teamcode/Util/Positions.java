@@ -37,13 +37,13 @@ public enum Positions {
 
     //Test Specmien related movement
     HighRungTest(new Vector2d(6, -44), 0.0),
-    GoFrontTinySpecimenTest(new Vector2d(6, -37), 0.0),
+    GoFrontTinySpecimenTest(new Vector2d(6, -35), 0.0),
     HighRung2Test(new Vector2d(-3, -47), 0.0),
     GoFrontTiny2SpecimenTest(new Vector2d(-3, -35), 0.0),
     HighRung3Test(new Vector2d(4, -47), 0.0),
-    GoFrontTiny3SpecimenTest(new Vector2d(4, -37), 0.0),
+    GoFrontTiny3SpecimenTest(new Vector2d(4, -35), 0.0),
     HighRung4Test(new Vector2d(2, -47), 0.0),
-    GoFrontTiny4SpecimenTest(new Vector2d(2, -37), 0.0),
+    GoFrontTiny4SpecimenTest(new Vector2d(2, -35), 0.0),
     FirstColorSampleTest(new Vector2d(32, -36),PI * 0.25),
     SecondColorSampleTest(new Vector2d(42, -37.5), PI * 0.25),
     DropColorSampleTest(new Vector2d(32, -47), PI * 0.75),

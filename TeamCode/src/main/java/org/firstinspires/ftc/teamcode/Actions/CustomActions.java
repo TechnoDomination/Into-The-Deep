@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Actions;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -40,7 +40,7 @@ public class CustomActions {
     }
 
     public List<String> getTelemetry(){
-        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Claw Rotater = "+clawRotater.getClawRotaterTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry());
+        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Claw Rotater = "+clawRotater.getClawRotaterTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry(), "Slides = "+ slides.getLimitSwitchTelemetry());
     }
 
     public Action resestTimer = new Action() {
@@ -256,6 +256,27 @@ public class CustomActions {
             return !arm.isTargetReached;
         }
     };
+
+    public Action armSpecimenMove = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            arm.state = Arm.State.AUTOSPECIMENMOVE;
+
+            if (runTime.time() > 4) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !arm.isTargetReached;
+        }
+    };
+
     public Action armHanging = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {

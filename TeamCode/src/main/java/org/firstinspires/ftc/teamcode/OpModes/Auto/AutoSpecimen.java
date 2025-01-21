@@ -81,7 +81,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 ),
                                 customActions.stopDrive,
                                 //Pick up sample 1 off ground
-                                customActions.armSubmersible,
+                                customActions.armSpecimenMove,
                                 customActions.resestTimer,
                                 new SleepAction(0.5),
 
@@ -100,7 +100,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(0.2),
                                 //Deliver to observation zone
                                 new ParallelAction(
-                                        customActions.armSubmersible,
+                                        customActions.armSpecimenMove,
                                         Positions.DropColorSampleTest.runToExact
                                 ),
 
@@ -112,7 +112,7 @@ public class AutoSpecimen extends LinearOpMode {
 
                                 new ParallelAction(
                                         Positions.SecondColorSampleTest.runToExact,
-                                        customActions.armSubmersible
+                                        customActions.armSpecimenMove
                                 ),
 
                                 customActions.stopDrive,
@@ -125,7 +125,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(0.2),
                                 //Deliver to observation zone
                                 new ParallelAction(
-                                        customActions.armSubmersible,
+                                        customActions.armSpecimenMove,
                                         Positions.DropColorSampleTest.runToExact
                                 ),
 

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.Util.PIDFController;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
@@ -27,7 +28,7 @@ public class Slides {
     public static int specimenAlignUpTarget = 600;
     public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
-    public static int hangingTarget = 1425;
+    public static int hangingTarget = 1450;
 
     //For auto only
     public static int autoSpecimenAlignTarget = 440;
@@ -77,6 +78,8 @@ public class Slides {
     public void update() {
         int encoder = SlideMotor1.getCurrentPosition();
 
+
+
         double motorPower = controller.calculate(state.target - encoder);
         //SlideMotor1.setPower(Range.clip(motorPower * .75,-0.75,0.75));
         //SlideMotor2.setPower(Range.clip(motorPower * .75,-0.75,0.75));
@@ -107,10 +110,25 @@ public class Slides {
             isTargetReached = false;
         }
 
-        if (limitSwitch.isPressed()){
+        if (limitSwitch.isPressed() && state == State.FULLDOWN){
+            //SlideMotor1.setPower(0);
+            //SlideMotor2.setPower(0);
+             isTargetReached = true;
+            //SlideMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //SlideMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            //SlideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+        if ((state == State.FULLDOWN) && ((SlideMotor1.getCurrent(CurrentUnit.AMPS) > 5 || SlideMotor2.getCurrent(CurrentUnit.AMPS) > 5))){
             SlideMotor1.setPower(0);
             SlideMotor2.setPower(0);
+
+            SlideMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            SlideMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            SlideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         }
+
 
     }
 
@@ -121,6 +139,7 @@ public class Slides {
         telemetry = telemetry + "\n State current = " + state;
         telemetry = telemetry + "\n State Target = " + state.target;
         telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;
+        telemetry = telemetry + "\n Slide Motor 1 current AMPS --> " + SlideMotor1.getCurrent(CurrentUnit.AMPS);
 
         telemetry = telemetry + "\n ";
 

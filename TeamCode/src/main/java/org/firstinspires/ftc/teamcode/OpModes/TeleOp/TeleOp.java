@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TeleOp extends LinearOpMode {
 
     private List<Action> runningActions = new ArrayList<>();
+
 
     @Override
     public void runOpMode() {
@@ -81,6 +83,7 @@ public class TeleOp extends LinearOpMode {
                 slides.state = Slides.State.HANGING;
             }
             telemetry.addData("Slides Telemetry = ", slides.getSlidesTelemetry());
+            telemetry.addData("Limit Switch Telemetry = ", slides.getLimitSwitchTelemetry());
 
             //Arm Controls
             if (gamepad2.y) {
@@ -145,6 +148,7 @@ public class TeleOp extends LinearOpMode {
             }
 
             telemetry.update();
+
 
         }
     }
